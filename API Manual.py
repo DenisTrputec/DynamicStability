@@ -194,6 +194,7 @@ int IERR - Is the error code (output).
 """
 
 
+# <editor-fold desc="###  Add Channels  ###">
 def machine_array_channel():
     print r"""
 ########################################################################################################################
@@ -491,8 +492,10 @@ int IERR - Is the error code (output).
 
 ########################################################################################################################
 """
+# </editor-fold desc>
 
 
+# <editor-fold desc="###  Disturbance  ###">
 def dist_branch_fault():
     print r"""
 ########################################################################################################################
@@ -589,6 +592,7 @@ int IERR - Is the error code (output).
 
 ########################################################################################################################
 """
+# </editor-fold>
 
 
 def abusint():
@@ -656,6 +660,112 @@ int IERR - Is the error code (output).
             IERR = 4 Invalid NSTR value.
             IERR = 5 DIM, and hence the size of CARRAY, is not large enough.
             IERR = 6 Invalid STRING value.
+
+########################################################################################################################
+"""
+
+
+def aflowint():
+    print r"""
+########################################################################################################################
+
+Use this API to return an array of integer values for subsystem branches.
+
+Python syntax:
+ierr, iarray = aflowint(sid, owner, ties, flag, string)
+
+int SID - Defines the bus subsystem to be used (input; -1 by default).
+            SID = a negative value, to instruct the API to assume a subsystem containing all buses in the working case.
+            SID = a valid bus subsystem identifier. Valid subsystem identifiers range from 0 to 11. Subsystem SID must
+                    have been previously defined.
+int OWNER - Is a flag indicating owner usage if ownership is a subsystem selection criterion (ignored if SID is 
+            negative) (input; 1 by default).
+                OWNER = 1 to use bus ownership.
+                OWNER = 2 to use branch ownership.
+int TIES -  Is a flag indicating which subsystem branches to include (ignored if SID is negative) (input; 1 by default).
+                TIES = 1 for each end of interior subsystem branches only.
+                TIES = 2 for the subsystem bus end of tie branches only.
+                TIES = 3 for the non-subsystem bus end of tie branches only.
+                TIES = 4 for each end of tie branches only.
+                TIES = 5 for each end of interior subsystem branches and the subsystem bus end of tie branches.
+                TIES = 6 for each end of interior subsystem branches and tie branches.
+int FLAG - Is a flag indicating which subsystem branches to include (input; 1 by default).
+                FLAG = 1 for only in-service branches.
+                FLAG = 2 for all branches.
+char[[]] STRING - Is an array of NSTR elements specifying NSTR of the following strings indicating the bus and/or 
+                    machine quantities desired (input; no default allowed):
+                        ’FROMNUMBER’ From bus number.
+                        ’TONUMBER’ To bus number (>10000000 for a three-winding transformer winding).
+                        ’STATUS’ Branch status.
+                        ’NMETERNUMBER' Non-metered end bus number.
+                        ’OWNERS’ Number of owners.
+                        ’OWN1’ First owner.
+                        ’OWN2’ Second owner.
+                        ’OWN3’ Third owner.
+                        ’OWN4’ Fourth owner.
+int IERR - Is the error code (output).
+            IERR = 0 No error.
+            IERR = 1 Working case is empty.
+            IERR = 2 Invalid SID value.
+            IERR = 3 Invalid OWNER value.
+            IERR = 4 Invalid TIES value.
+            IERR = 5 Invalid FLAG value.
+            IERR = 6 Invalid NSTR value.
+            IERR = 7 DIM, and hence the size of IARRAY, is not large enough.
+            IERR = 8 Invalid STRING value.
+
+########################################################################################################################
+"""
+
+
+def aflowchar():
+    print r"""
+########################################################################################################################
+
+Use this API to return an array of character values for subsystem branches.
+
+Python syntax:
+ierr, iarray = aflowchar(sid, owner, ties, flag, string)
+
+int SID - Defines the bus subsystem to be used (input; -1 by default).
+            SID = a negative value, to instruct the API to assume a subsystem containing all buses in the working case.
+            SID = a valid bus subsystem identifier. Valid subsystem identifiers range from 0 to 11. Subsystem SID must
+                    have been previously defined.
+int OWNER - Is a flag indicating owner usage if ownership is a subsystem selection criterion (ignored if SID is 
+            negative) (input; 1 by default).
+                OWNER = 1 to use bus ownership.
+                OWNER = 2 to use branch ownership.
+int TIES -  Is a flag indicating which subsystem branches to include (ignored if SID is negative) (input; 1 by default).
+                TIES = 1 for each end of interior subsystem branches only.
+                TIES = 2 for the subsystem bus end of tie branches only.
+                TIES = 3 for the non-subsystem bus end of tie branches only.
+                TIES = 4 for each end of tie branches only.
+                TIES = 5 for each end of interior subsystem branches and the subsystem bus end of tie branches.
+                TIES = 6 for each end of interior subsystem branches and tie branches.
+int FLAG - Is a flag indicating which subsystem branches to include (input; 1 by default).
+                FLAG = 1 for only in-service branches.
+                FLAG = 2 for all branches.
+char[[]] STRING - Is an array of NSTR elements specifying NSTR of the following strings indicating the bus and/or 
+                    machine quantities desired (input; no default allowed):
+                        ’ID’ Circuit identifier (2 characters).
+                        ’FROMNAME’ From bus name (12 characters).
+                        ’FROMEXNAME’ From bus extended bus name (18 characters).
+                        ’TONAME’ To bus name (three-winding transformer name for a three-winding transformer winding) 
+                                    (12 characters).
+                        ’TOEXNAME’ To bus extended bus name (three-winding transformer name and winding number for a 
+                                    threewinding transformer winding) (18 characters).
+                        ’NMETERNAME’ Non-metered bus name (12 characters).
+                        ’NMETEREXNAME’ Non-metered bus extended bus name (18 characters).
+int IERR - Is the error code (output).
+            IERR = 0 No error.
+            IERR = 1 Working case is empty.
+            IERR = 2 Invalid SID value.
+            IERR = 3 Invalid OWNER value.
+            IERR = 4 Invalid TIES value.
+            IERR = 5 Invalid FLAG value.
+            IERR = 6 Invalid NSTR value.
+            IERR = 7 DIM, and hence the size of CARRAY, is not large enough.
+            IERR = 8 Invalid STRING value.
 
 ########################################################################################################################
 """

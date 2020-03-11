@@ -44,7 +44,7 @@ def start_psse():
 def options():
     option = -1
     while option == -1:
-        option = input("\nChoose option:\n\t1 - Bus\n\t2 - Branch\n\t3 - Machine\n\t3 - Disturbance\n\nOption: ")
+        option = input("\nChoose option:\n\t1 - Bus\n\t2 - Branch\n\t3 - Machine\n\t4 - Disturbance\n\nOption: ")
         if option == 1:
             # Choose output file name
             out_file = get_out_file()
