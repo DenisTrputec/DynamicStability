@@ -121,7 +121,7 @@ def check_if_machine_exist(bus_number, machine_id):
 def add_bus_channels():
     # Initialization
     bus_number = None
-    plot_counter = 0
+    channel_counter = 0
     # Enter bus number until exists
     bus_exist = False
     while not bus_exist:
@@ -134,27 +134,27 @@ def add_bus_channels():
         option = raw_input("\nFrequency: ")
         if option == 'T':
             psspy.bus_frequency_channel([-1, bus_number], r"""Hz""")
-            plot_counter += 1
+            channel_counter += 1
     option = 'Default'
     while option != 'T' and option != 'F':
         option = raw_input("\nVoltage: ")
         if option == 'T':
             psspy.voltage_channel([-1, -1, -1, bus_number], r"""kV""")
-            plot_counter += 1
+            channel_counter += 1
     option = 'Default'
     while option != 'T' and option != 'F':
         option = raw_input("\nVoltage and Angle: ")
         if option == 'T':
             psspy.voltage_and_angle_channel([-1, -1, -1, bus_number], [r"""kV""", r"""DEG"""])
-            plot_counter += 2
+            channel_counter += 2
     # Return plot counter
-    return plot_counter
+    return channel_counter
 
 
 def add_branch_channels():
     # Initialization
     bus1_number = bus2_number = circuit_id = None
-    plot_counter = 0
+    channel_counter = 0
     # Enter bus numbers and circuit id until exists
     branch_exist = False
     while not branch_exist:
@@ -169,27 +169,27 @@ def add_branch_channels():
         option = raw_input("\nMVA: ")
         if option == 'T':
             psspy.branch_mva_channel([-1, -1, -1, bus1_number, bus2_number], circuit_id, r"""MVA""")
-            plot_counter += 1
+            channel_counter += 1
     option = 'Default'
     while option != 'T' and option != 'F':
         option = raw_input("\nP and Q: ")
         if option == 'T':
             psspy.branch_p_and_q_channel([-1, -1, -1, bus1_number, bus2_number], circuit_id, [r"""P""", r"""Q"""])
-            plot_counter += 2
+            channel_counter += 2
     option = 'Default'
     while option != 'T' and option != 'F':
         option = raw_input("\nP: ")
         if option == 'T':
             psspy.branch_p_channel([-1, -1, -1, bus1_number, bus2_number], circuit_id, r"""P""")
-            plot_counter += 1
+            channel_counter += 1
     # Return plot counter
-    return plot_counter
+    return channel_counter
 
 
 def add_machine_channels():
     # Initialization
     bus_number = machine_id = None
-    plot_counter = 0
+    channel_counter = 0
     # Enter bus number and machine id until exists
     machine_exist = False
     while not machine_exist:
@@ -203,21 +203,83 @@ def add_machine_channels():
         option = raw_input("\nAngle: ")
         if option == 'T':
             psspy.machine_array_channel([-1, 1, bus_number], machine_id, r"""DEG""")
-            plot_counter += 1
+            channel_counter += 1
     option = 'Default'
     while option != 'T' and option != 'F':
         option = raw_input("\nPelec: ")
         if option == 'T':
             psspy.machine_array_channel([-1, 2, bus_number], machine_id, r"""P""")
-            plot_counter += 1
+            channel_counter += 1
     # Return plot counter
-    return plot_counter
+    return channel_counter
 
 # </editor-fold>
 
 
 def disturbance():
-    pass
+    # Initialization of plot counter
+    channel_counter = 0
+    # Choose output file name
+    out_file = get_out_file()
+    option = -1
+    while option != 0 or channel_counter == 0:
+        option = input(r"""
+        Choose which channel to add:
+            1 - Bus
+            2 - Branch
+            3 - Machine
+            0 - Finished adding channels
+            
+            Option: """)
+        if option == 1:
+            # Add bus channels
+            channel_counter += add_bus_channels()
+        elif option == 2:
+            # Add branch channels
+            channel_counter += add_branch_channels()
+        elif option == 3:
+            # Add machine channels
+            channel_counter += add_machine_channels()
+        elif option == 0:
+            print "\nYou must add at least one channel!"
+    print "\nYou added " + str(channel_counter) + (" channels!" if channel_counter > 1 else " channel!")
+
+    # Initialize a PSSE dynamic simulation for state-space simulations and specify the Channel Output File
+    psspy.strt(0, out_file)
+    time = 0
+    option = -1
+    while option != 3:
+        option = input(r"""
+        Choose what to do next:
+            1 - Run dynamics
+            2 - Add disturbance
+            3 - Plot output
+
+            Option: """)
+        if option == 1:
+            print "Time of next pause must be between greater than: %.2f" % time
+            time = float(input("\nTime of pause: "))
+            psspy.run(tpause=time)
+        elif option == 2:
+            # Enter bus numbers and circuit id until exists
+            bus1_number = bus2_number = circuit_id = None
+            branch_exist = False
+            while not branch_exist:
+                bus1_number = input("\nEnter number of the from bus of the branch: ")
+                bus2_number = input("Enter number of the to bus of the branch: ")
+                circuit_id = raw_input("Enter circuit id: ")
+                branch_exist = check_if_branch_exist(bus1_number, bus2_number, circuit_id)
+            psspy.dist_branch_fault(bus1_number, bus2_number, circuit_id)
+            print "Time of branch fault must be between: %.2f and %.2f" % (time, time + 0.3)
+            new_time = time
+            while new_time <= time or new_time > time + 1:
+                new_time = float(input("\nTime of pause: "))
+                psspy.run(tpause=new_time)
+            psspy.dist_clear_fault(1)
+            psspy.dist_branch_trip(bus1_number, bus2_number, circuit_id)
+            time = new_time
+        elif option == 3:
+            plot_graph(out_file, channel_counter)
 
 
 def get_out_file():
@@ -244,10 +306,10 @@ def read_xls_file():
     return data
 
 
-def plot_graph(out_file, plot_counter):
+def plot_graph(out_file, channel_counter):
     chan_id = save_xls_file(out_file)
     data = read_xls_file()
-    for i in range(1, plot_counter + 1):
+    for i in range(1, channel_counter + 1):
         plot_options(data, chan_id, i)
     pyplot.show()
 
