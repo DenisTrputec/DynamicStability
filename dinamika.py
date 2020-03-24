@@ -44,7 +44,8 @@ def start_psse():
 def options():
     option = -1
     while option == -1:
-        option = input("\nChoose option:\n\t1 - Bus\n\t2 - Branch\n\t3 - Machine\n\t4 - Disturbance\n\nOption: ")
+        option = input("\nChoose option:\n\t1 - Bus\n\t2 - Branch\n\t3 - Machine"
+                       "\n\t4 - Disturbance\n\t5 - Contingency calculation and report\n\nOption: ")
         if option == 1:
             # Choose output file name
             out_file = get_out_file()
@@ -83,6 +84,8 @@ def options():
             plot_graph(out_file, plot_counter)
         elif option == 4:
             disturbance()
+        elif option == 5:
+            contingency_calculation()
         else:
             option = -1
 
@@ -280,6 +283,48 @@ def disturbance():
             time = new_time
         elif option == 3:
             plot_graph(out_file, channel_counter)
+
+
+def contingency_calculation():
+    # Fie names
+    raw_file = r"""NDC_2019-09-04_13-39-00.raw"""
+    sub_file = r"""mreza.sub"""
+    mon_file = r"""mreza.mon"""
+    con_file = r"""mreza.con"""
+    dfx_file = r"""rezultat.dfx"""
+    acc_file = r"""rezultat.acc"""
+    thr_file = r""""""
+
+    # Restart PSSE and import raw file
+    psspy.psseinit(10000)
+    psspy.read(0, raw_file)
+
+    # Remove swingless islands
+    ierr, buses = psspy.tree(1, -1)
+    print 'Number of buses in this swingless island:', buses
+    while buses > 0:
+        ierr, buses = psspy.tree(2, 1)
+        print 'Number of buses in this swingless island:', buses
+        print 'tree.ierr status:', ierr
+
+    # Apply the Newton-Raphson power flow calculation
+    psspy.fnsl()
+
+    # Construct a Distribution Factor Data File
+    option_array = [1, 0]
+    psspy.dfax(option_array, sub_file, mon_file, con_file, dfx_file)
+
+    # Run the AC contingency calculation function
+    tolerance = 0.5
+    option_array = [0, 0, 1, 1, 0, 0, 0]
+    psspy.accc(tolerance, option_array, dfx_file, acc_file, thr_file)
+
+    # Report the results of the AC Contingency Calculation function
+    flow_rating_pct = float(input("\nPercent of flow rating: "))
+    status = [0, 1, 1, 0, 1, 0, 0, 0]
+    intval = [0, 0, 0, 0, 6000]
+    realval = [0.5, 5.0, flow_rating_pct, 0.0, 0.0, 0.0, 9999.0]
+    psspy.accc_single_run_report(status, intval, realval, acc_file)
 
 
 def get_out_file():

@@ -3,16 +3,26 @@
     <words>
       <w>abuschar</w>
       <w>abusint</w>
+      <w>accc</w>
+      <w>accfile</w>
+      <w>aflowchar</w>
+      <w>aflowint</w>
       <w>amachchar</w>
       <w>amachint</w>
+      <w>apiopt</w>
       <w>basekv</w>
+      <w>bazni</w>
       <w>carray</w>
+      <w>cierr</w>
       <w>compilfil</w>
       <w>conec</w>
       <w>conecfile</w>
       <w>conet</w>
       <w>conetfile</w>
+      <w>confile</w>
       <w>crtplt</w>
+      <w>dfax</w>
+      <w>dfxfile</w>
       <w>dinamika</w>
       <w>dinamička</w>
       <w>dyre</w>
@@ -20,25 +30,58 @@
       <w>ecomp</w>
       <w>eterm</w>
       <w>exname</w>
+      <w>fdns</w>
+      <w>fnsl</w>
+      <w>fromexname</w>
+      <w>fromname</w>
+      <w>fromnumber</w>
+      <w>gentap</w>
       <w>gref</w>
       <w>iarray</w>
       <w>ibus</w>
       <w>ident</w>
       <w>ierr</w>
       <w>ifault</w>
+      <w>ifile</w>
+      <w>iierr</w>
+      <w>inlfile</w>
+      <w>intval</w>
       <w>jbus</w>
       <w>lcref</w>
       <w>mbase</w>
       <w>mhos</w>
+      <w>mikac</w>
+      <w>monfile</w>
+      <w>mreza</w>
       <w>mstr</w>
+      <w>multisection</w>
+      <w>mvar</w>
+      <w>nmeterexname</w>
+      <w>nmetername</w>
+      <w>nmeternumber</w>
       <w>nplt</w>
       <w>nprt</w>
       <w>nstr</w>
+      <w>numnam</w>
+      <w>outx</w>
       <w>pelec</w>
+      <w>pmax</w>
       <w>pmech</w>
+      <w>pmin</w>
+      <w>pssbin</w>
       <w>psse</w>
       <w>psseinit</w>
       <w>qelec</w>
+      <w>qgen</w>
+      <w>qmax</w>
+      <w>qmin</w>
+      <w>raphson</w>
+      <w>rarray</w>
+      <w>ratea</w>
+      <w>realval</w>
+      <w>rezultat</w>
+      <w>rfile</w>
+      <w>rierr</w>
       <w>rstr</w>
       <w>sbase</w>
       <w>scmu</w>
@@ -48,6 +91,15 @@
       <w>stabilnost</w>
       <w>startindx</w>
       <w>strt</w>
+      <w>subfile</w>
+      <w>swingless</w>
+      <w>threewinding</w>
+      <w>thrfile</w>
+      <w>throwover</w>
+      <w>toexname</w>
+      <w>toln</w>
+      <w>toname</w>
+      <w>tonumber</w>
       <w>tpause</w>
       <w>trputec</w>
       <w>voel</w>
@@ -66,6 +118,7 @@
       <w>wtrbsp</w>
       <w>wvlcty</w>
       <w>xadifd</w>
+      <w>xlsx</w>
     </words>
   </dictionary>
 </component>
