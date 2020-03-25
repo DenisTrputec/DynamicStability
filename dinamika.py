@@ -20,7 +20,7 @@ import numpy
 from matplotlib import pyplot
 import psspy
 import dyntools
-
+import redirect
 
 # Global variables
 xls_file = r"""xls_file.xlsx"""
@@ -30,6 +30,8 @@ def start_psse():
     psse_path = r'C:\Program Files (x86)\PTI\PSSE33\PSSBIN'
     sys.path.append(psse_path)
     os.environ['PATH'] += ';' + psse_path
+
+    redirect.psse2py()
 
     # File names
     case_file = r"""HR02_BAZNI_DYN.sav"""
@@ -294,6 +296,7 @@ def contingency_calculation():
     dfx_file = r"""rezultat.dfx"""
     acc_file = r"""rezultat.acc"""
     thr_file = r""""""
+    accc_report = r"accc_report.txt"
 
     # Restart PSSE and import raw file
     psspy.psseinit(10000)
@@ -319,12 +322,41 @@ def contingency_calculation():
     option_array = [0, 0, 1, 1, 0, 0, 0]
     psspy.accc(tolerance, option_array, dfx_file, acc_file, thr_file)
 
-    # Report the results of the AC Contingency Calculation function
-    flow_rating_pct = float(input("\nPercent of flow rating: "))
+    # Report the results of the AC Contingency Calculation function - Parameters
+    # flow_rating_pct = float(input("\nPercent of flow rating: "))
+    flow_rating_pct = 70.0
     status = [0, 1, 1, 0, 1, 0, 0, 0]
     intval = [0, 0, 0, 0, 6000]
     realval = [0.5, 5.0, flow_rating_pct, 0.0, 0.0, 0.0, 9999.0]
+
+    # Redirect output to temporary .txt file
+    stdout_origin = sys.stdout
+    sys.stdout = open(accc_report, "w")
+    # Report the results of the AC Contingency Calculation function - Function
     psspy.accc_single_run_report(status, intval, realval, acc_file)
+    # Redirect output to python console again
+    sys.stdout.close()
+    sys.stdout = stdout_origin
+
+    # Print branches from report
+    limit_yellow = flow_rating_pct
+    limit_red = (limit_yellow + 100.0) / 2.0
+    with open(accc_report) as handle:
+        read_flag = False
+        for line in handle:
+            if " <----------------- MONITORED BRANCH ----------------->" in line:
+                read_flag = True
+                print "\n" + line[:-1]
+            elif read_flag and line.strip() == '':
+                break
+            elif read_flag:
+                if limit_yellow <= float(line[-8:]) < limit_red:
+                    print line[:-1] + "\tYELLOW"
+                else:
+                    print line[:-1] + "\tRED"
+
+    # Delete temporary .txt file
+    os.remove(accc_report)
 
 
 def get_out_file():
