@@ -288,7 +288,7 @@ def disturbance():
 
 
 def contingency_calculation():
-    # Fie names
+    # File names
     raw_file = r"""NDC_2019-09-04_13-39-00.raw"""
     sub_file = r"""mreza.sub"""
     mon_file = r"""mreza.mon"""
