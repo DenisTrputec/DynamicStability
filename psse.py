@@ -72,11 +72,17 @@ def add_bus_channels(out_file, bus_number, option_frequency, option_voltage, opt
     return channel_counter
 
 
-def run(out_file, plot_counter, time):
-    # Run
+def run(time):
+    # Run dynamics
     psspy.run(tpause=time)
-    # Plotting graph
-    plot_graph(out_file, plot_counter)
+
+
+def disturbance(bus1_number, bus2_number, circuit_id, time):
+    # Add branch fault
+    psspy.dist_branch_fault(bus1_number, bus2_number, circuit_id)
+    psspy.run(tpause=time)
+    psspy.dist_clear_fault(1)
+    psspy.dist_branch_trip(bus1_number, bus2_number, circuit_id)
 
 
 def cli_options():
@@ -121,7 +127,7 @@ def cli_options():
             # Plotting graph
             plot_graph(out_file, plot_counter)
         elif option == 4:
-            disturbance()
+            cli_disturbance()
         elif option == 5:
             contingency_calculation()
         else:
@@ -260,7 +266,7 @@ def add_machine_channels():
 # </editor-fold>
 
 
-def disturbance():
+def cli_disturbance():
     # Initialization of plot counter
     channel_counter = 0
     # Choose output file name

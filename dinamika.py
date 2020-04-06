@@ -277,7 +277,7 @@ def disturbance():
             psspy.dist_branch_fault(bus1_number, bus2_number, circuit_id)
             print "Time of branch fault must be between: %.2f and %.2f" % (time, time + 0.3)
             new_time = time
-            while new_time <= time or new_time > time + 1:
+            while new_time <= time or new_time > time + 0.3:
                 new_time = float(input("\nTime of pause: "))
                 psspy.run(tpause=new_time)
             psspy.dist_clear_fault(1)
@@ -355,8 +355,27 @@ def contingency_calculation():
                 else:
                     print line[:-1] + "\tRED"
 
+    #  Monitored Voltage Report
+    limit_yellow = 0.05
+    limit_red = 0.1
+    with open(accc_report) as handle:
+        read_flag = False
+        for line in handle:
+            if "<----- CONTINGENCY LABEL ------> <-------- B U S -------->   V-CONT   V-INIT" in line:
+                read_flag = True
+                print "\n" + line[:-1]
+            elif read_flag and line.strip() == '':
+                break
+            elif read_flag:
+                if 1-limit_red >= float(line[106:113]) or float(line[106:113]) >= 1+limit_red:
+                    print line[:-1] + "\tRED"
+                elif 1-limit_yellow >= float(line[106:113]) or float(line[106:113]) >= 1+limit_yellow:
+                    print line[:-1] + "\tYELLOW"
+                else:
+                    print line[:-1] + "\tGREEN"
+
     # Delete temporary .txt file
-    os.remove(accc_report)
+    # os.remove(accc_report)
 
 
 def get_out_file():

@@ -1,0 +1,760 @@
+ ACCC OVERLOAD REPORT: MONITORED BRANCHES AND INTERFACES LOADED ABOVE  70.0 OF RATING SET A
+                       OADING VALUES ARE MVA FOR TRANSFORMERS AND URRENT FOR NON-TRANSFORMER BRANCHES
+ INCLUDES VOLTAGE REPORT. VOLTAGE LIMITS USE NORMAL (BASE CASE) OR EMERGENCY (CONTINGENCY CASES)
+
+ AC CONTINGENCY RESULTS FILE:  rezultat.acc
+ DISTRIBUTION FACTOR FILE:     rezultat.dfx
+ SUBSYSTEM DESCRIPTION FILE:   mreza.sub
+ MONITORED ELEMENT FILE:       mreza.mon
+ CONTINGENCY DESCRIPTION FILE: mreza.con
+
+ **PERCENT LOADING UNITS**
+ MVA FOR TRANSFORMERS
+ I  FOR NON-TRANSFORMER BRANCHES
+ **OPTIONS USED IN CONTINGENCY ANALYSIS**
+ Solution engine:              Fixed slope decoupled Newton-Raphson (FDNS)
+ Solution options
+   Tap adjustment:             Lock taps
+   Area interchange control:   Disable
+   Phase shift adjustment:     Enable
+   Dc tap adjustment:          Enable
+   Switch shunt adjustment:    Lock all
+   Induction motor treatment:  Stall
+   Induction machine failure:  Treat contingency as non-converged
+ Non diverge:                  Disable
+ Mismatch tolerance (MW ):     0.5
+ Dispatch mode:                Disable
+
+ <----------------- MONITORED BRANCH -----------------> <----- CONTINGENCY LABEL ------>   RATING     FLOW       
+  60109*HSENJ 2     220.00  60157 HSENJ 5     110.00 1  SINGLE 60013-60040(1)               200.0    156.5     78.3
+  60109*HSENJ 2     220.00  60157 HSENJ 5     110.00 1  SINGLE 60013-60134(1)               200.0    165.8     82.9
+  60032*HERNES1     400.00  60033 HERNES5     110.00 2  SINGLE 60032-60033(1)               300.0    226.9     75.6
+  60032*HERNES1     400.00  60033 HERNES5     110.00 1  SINGLE 60032-60033(2)               300.0    226.9     75.6
+  60056 HKRK  5     110.00  60068*HMELIN5     110.00 1  SINGLE 60035-60159(1)               100.0     79.1     75.3
+  60104*HRHEBB5     110.00  60156 HPERUC5     110.00 1  SINGLE 60038-60210(1)                90.0     75.0     78.7
+  60111 HSINJ 5     110.00  60156*HPERUC5     110.00 1  SINGLE 60038-60210(1)                86.0     86.1     95.1
+  60111*HSINJ 5     110.00  60205 HDUGPO5     110.00 1  SINGLE 60038-60210(1)                91.0     72.9     76.4
+  60056 HKRK  5     110.00  60068*HMELIN5     110.00 1  SINGLE 60044-60078(1)               100.0     74.2     70.6
+  60056 HKRK  5     110.00  60068*HMELIN5     110.00 1  SINGLE 60044-60159(1)               100.0     74.9     71.2
+  60017 HDELNI5     110.00  60070*HMORAV5     110.00 1  SINGLE 60066-60129(1)                69.0     53.4     74.4
+  60040 HHEVIN5     110.00  60188*HVRATA5     110.00 2  SINGLE 60066-60129(1)               135.0    101.2     71.6
+  60094 HPOKUP5     110.00  60148*HZDENC5     110.00 1  SINGLE 60066-60129(1)               123.0    110.8     86.6
+  60109*HSENJ 2     220.00  60157 HSENJ 5     110.00 1  SINGLE 60066-60129(1)               200.0    153.7     76.8
+  60130*HTUMBR5     110.00  60148 HZDENC5     110.00 1  SINGLE 60066-60129(1)               123.0    127.2     98.4
+  60012 HCAKOV5     110.00  60074*HNEDEL5     110.00 1  SINGLE 60074-60155(1)                90.0     71.4     77.4
+  60013*HCRIKV5     110.00  60040 HHEVIN5     110.00 1  SINGLE 60109-60157(1)               123.0    147.9    113.7
+  60013 HCRIKV5     110.00  60134*HVEVRA5     110.00 1  SINGLE 60109-60157(1)               123.0    160.1    120.9
+  60134 HVEVRA5     110.00  60157*HSENJ 5     110.00 1  SINGLE 60109-60157(1)               123.0    131.2     98.5
+  60038 HHEKRA5     110.00  60210*HVELUK5     110.00 1  SINGLE 60111-60156(1)               114.0     85.6     71.2
+  60128 HTSPO15     110.00  60136*HVINCE5     110.00 1  SINGLE 60124-60192(1)               123.0     87.6     71.2
+  60129*HTUMBR1     400.00  60130 HTUMBR5     110.00 2  SINGLE 60129-60130(1)               300.0    222.5     74.2
+  60129*HTUMBR1     400.00  60130 HTUMBR5     110.00 1  SINGLE 60129-60130(2)               300.0    224.3     74.8
+
+ MONITORED VOLTAGE REPORT:
+ SYSTEM                                       <----- CONTINGENCY LABEL ------> <-------- B U S -------->   V-CONT   V-INIT   V-MAX    V-MIN
+ ALL                                DEVIATION SINGLE 60033-60099(1)             60006 HBMANA5     110.00  1.00243  1.05385  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60033-60099(1)             60099 HPTEOS51    110.00  1.00010  1.06405  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60042-60072(1)             60042 HIVANI5     110.00  0.97664  1.03448  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60056-60068(1)             60030 HDUNAT5     110.00  1.14280  1.06415  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60056-60068(1)             60056 HKRK  5     110.00  1.14781  1.06024  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60056-60068(1)             60059 HLOSIN5     110.00  1.15560  1.06709  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60056-60068(1)             60100 HRAB  5     110.00  1.12804  1.07160  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60000 HANDRI5     110.00  1.00538  1.05918  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60006 HBMANA5     110.00  0.99910  1.05385  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60014 HDAKO25     110.00  1.01357  1.06774  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60015 HDAKOV2     220.00  1.00168  1.05284  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60021 HDONJM5     110.00  0.99694  1.05104  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60032 HERNES1     400.00  0.98336  1.03652  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60033 HERNES5     110.00  1.01311  1.06751  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60034 HEVPAN5     110.00  1.00542  1.05920  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60073 HNASIC5     110.00  1.00080  1.05408  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60076 HNIJEM5     110.00  1.00724  1.06210  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60083 HOSIJ15     110.00  1.01128  1.06573  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60084 HOSIJ35     110.00  1.01128  1.06581  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60085 HOSIJ45     110.00  1.01154  1.06606  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60099 HPTEOS51    110.00  1.00955  1.06405  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60114 HSLBR15     110.00  0.99332  1.04636  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60115 HSLBR25     110.00  0.99285  1.04616  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60131 HVALPO5     110.00  0.99456  1.04915  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60137 HVINKO5     110.00  1.00575  1.06058  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60141 HVUKOV5     110.00  1.00753  1.06232  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60153 HZUPAN5     110.00  0.99225  1.04779  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60160 HDAKO35     110.00  1.01426  1.06847  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             60166 HDAKOV5     110.00  1.01385  1.06800  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             70099 HPTEOS52    110.00  1.01307  1.06747  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99970 XUG_ER11    400.00  0.98802  1.04110  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99973 XTU_DA21    220.00  1.02294  1.07327  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99979 XOR_ZU51    110.00  0.98744  1.04323  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99991 XGR_DA21    220.00  1.00093  1.05215  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99992 XER_SM11    400.00  0.98283  1.03614  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99994 XER_PE11    400.00  0.98470  1.03791  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60064-60065(1)             99997 XBR_SL51    110.00  0.99058  1.04400  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             60009 HBUJE 5     110.00  0.98781  1.04502  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             60010 HBUTON5     110.00  0.98178  1.04197  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             60011 HBUZET5     110.00  0.98295  1.04243  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             60046 HKATOR5     110.00  0.98480  1.04116  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             60089 HPAZIN5     110.00  0.98034  1.04145  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             60095 HPOREC5     110.00  0.98076  1.03494  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60089-60192(1)             99996 XBU_KO51    110.00  0.99502  1.05188  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60000 HANDRI5     110.00  1.12206  1.05918  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60006 HBMANA5     110.00  1.10940  1.05385  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60014 HDAKO25     110.00  1.12881  1.06774  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60015 HDAKOV2     220.00  1.11060  1.05284  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60021 HDONJM5     110.00  1.10414  1.05104  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60032 HERNES1     400.00  1.09278  1.03652  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60033 HERNES5     110.00  1.12513  1.06751  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60034 HEVPAN5     110.00  1.12213  1.05920  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60073 HNASIC5     110.00  1.10466  1.05408  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60076 HNIJEM5     110.00  1.12125  1.06210  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60083 HOSIJ15     110.00  1.12307  1.06573  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60084 HOSIJ35     110.00  1.12329  1.06581  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60085 HOSIJ45     110.00  1.12358  1.06606  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60099 HPTEOS51    110.00  1.12123  1.06405  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60114 HSLBR15     110.00  1.11177  1.04636  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60115 HSLBR25     110.00  1.11132  1.04616  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60131 HVALPO5     110.00  1.10348  1.04915  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60137 HVINKO5     110.00  1.12036  1.06058  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60141 HVUKOV5     110.00  1.12140  1.06232  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60153 HZUPAN5     110.00  1.10934  1.04779  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60160 HDAKO35     110.00  1.12906  1.06847  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             60166 HDAKOV5     110.00  1.12906  1.06800  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             70099 HPTEOS52    110.00  1.12510  1.06747  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99970 XUG_ER11    400.00  1.09730  1.04110  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99973 XTU_DA21    220.00  1.13019  1.07327  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99979 XOR_ZU51    110.00  1.10504  1.04323  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99991 XGR_DA21    220.00  1.10998  1.05215  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99992 XER_SM11    400.00  1.09256  1.03614  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99994 XER_PE11    400.00  1.09423  1.03791  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60096-60114(1)             99997 XBR_SL51    110.00  1.10929  1.04400  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60009 HBUJE 5     110.00  0.97153  1.04502  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60010 HBUTON5     110.00  0.96476  1.04197  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60011 HBUZET5     110.00  0.96609  1.04243  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60046 HKATOR5     110.00  0.96872  1.04116  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60089 HPAZIN5     110.00  0.96309  1.04145  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60095 HPOREC5     110.00  0.96523  1.03494  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60106 HROVIN5     110.00  0.98164  1.03470  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60192 HTUPLJ5     110.00  0.96107  1.04939  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             60193 HFUNTA5     110.00  0.96934  1.03363  0.05000  0.05000
+ ALL                                DEVIATION SINGLE 60124-60192(1)             99996 XBU_KO51    110.00  0.97888  1.05188  0.05000  0.05000
+
+ MONITORED VOLTAGE LIMIT REPORT:
+ <-------- B U S --------> <----- CONTINGENCY LABEL ------>   V-CONT   V-INIT    V-MAX    V-MIN
+
+ LOSS OF LOAD REPORT:
+ <-------- B U S --------> <----- CONTINGENCY LABEL ------> LOAD(MW)
+
+ <----- CONTINGENCY LABEL ------><----- POST-CONTINGENCY SOLUTION ----->
+                                 <TERMINATION  STATE> FLOW# VOLT#  LOAD
+ BASE CASE                        Met convergence to     0     0    0.0
+ SINGLE 122-60008(1)              Met convergence to     0     0    0.0
+ SINGLE 122-60050(1)              Met convergence to     0     0    0.0
+ SINGLE 126-60051(1)              Met convergence to     0     0    0.0
+ SINGLE 126-60162(1)              Met convergence to     0     0    0.0
+ SINGLE 126-60168(1)              Met convergence to     0     0    0.0
+ SINGLE 374-60020(1)              Met convergence to     0     0    0.0
+ SINGLE 374-60161(1)              Met convergence to     0     0    0.0
+ SINGLE 60000-60114(1)            Met convergence to     0     0    0.0
+ SINGLE 60000-60166(1)            Met convergence to     0     0    0.0
+ SINGLE 60001-60003(1)            Met convergence to     0     0    0.0
+ SINGLE 60001-60184(1)            Met convergence to     0     0    0.0
+ SINGLE 60002-60003(1)            Met convergence to     0     0    0.0
+ SINGLE 60002-60003(2)            Met convergence to     0     0    0.0
+ SINGLE 60002-60050(1)            Met convergence to     0     0    0.0
+ SINGLE 60002-60050(2)            Met convergence to     0     0    0.0
+ SINGLE 60002-60145(1)            Met convergence to     0     0    0.0
+ SINGLE 60003-60004(1)            Met convergence to     0     0    0.0
+ SINGLE 60003-60022(1)            Met convergence to     0     0    0.8
+ SINGLE 60003-60171(2)            Met convergence to     0     0    9.7
+ SINGLE 60003-60194(1)            Met convergence to     0     0    0.0
+ SINGLE 60004-60143(1)            Met convergence to     0     0    0.0
+ SINGLE 60005-60042(1)            Met convergence to     0     0    0.0
+ SINGLE 60005-60052(1)            Met convergence to     0     0    0.0
+ SINGLE 60005-60069(1)            Met convergence to     0     0    0.0
+ SINGLE 60006-60099(1)            Met convergence to     0     0    0.0
+ SINGLE 60006-60131(1)            Met convergence to     0     0    0.0
+ SINGLE 60007-60043(1)            Met convergence to     0     0    0.0
+ SINGLE 60007-60043(2)            Met convergence to     0     0    0.0
+ SINGLE 60007-60116(1)            Met convergence to     0     0    0.0
+ SINGLE 60007-60126(1)            Met convergence to     0     0    0.0
+ SINGLE 60007-60126(2)            Met convergence to     0     0    0.0
+ SINGLE 60007-60130(1)            Met convergence to     0     0    0.0
+ SINGLE 60008-60109(1)            Met convergence to     0     0    0.0
+ SINGLE 60009-60011(1)            Met convergence to     0     0    0.0
+ SINGLE 60009-60046(1)            Met convergence to     0     0    0.0
+ SINGLE 60010-60011(1)            Met convergence to     0     0    0.0
+ SINGLE 60010-60089(1)            Met convergence to     0     0    0.0
+ SINGLE 60012-60036(1)            Met convergence to     0     0    0.0
+ SINGLE 60012-60074(1)            Met convergence to     0     0    0.0
+ SINGLE 60013-60040(1)            Met convergence to     1     0    0.0
+ SINGLE 60013-60134(1)            Met convergence to     1     0    0.0
+ SINGLE 60014-60166(1)            Met convergence to     0     0    3.0
+ SINGLE 60015-60166(2)            Iteration limit ex    --    --     --
+ SINGLE 60016-60065(1)            Iteration limit ex    --    --     --
+ SINGLE 60016-60139(1)            Iteration limit ex    --    --     --
+ SINGLE 60017-60070(1)            Met convergence to     0     0    0.0
+ SINGLE 60017-60188(1)            Met convergence to     0     0    0.0
+ SINGLE 60019-60045(1)            Met convergence to     0     0    0.0
+ SINGLE 60019-60120(1)            Met convergence to     0     0    0.0
+ SINGLE 60020-60110(1)            Met convergence to     0     0    0.0
+ SINGLE 60021-60073(1)            Met convergence to     0     0    0.0
+ SINGLE 60021-60131(1)            Met convergence to     0     0    0.0
+ SINGLE 60022-60047(1)            Met convergence to     0     0   -5.4
+ SINGLE 60023-60057(1)            Met convergence to     0     0    0.0
+ SINGLE 60023-60057(2)            Met convergence to     0     0    0.0
+ SINGLE 60023-60103(1)            Met convergence to     0     0    0.0
+ SINGLE 60023-60103(2)            Met convergence to     0     0    0.0
+ SINGLE 60023-60152(1)            Met convergence to     0     0    0.0
+ SINGLE 60023-60152(2)            Met convergence to     0     0    0.0
+ SINGLE 60024-60094(1)            Met convergence to     0     0    0.0
+ SINGLE 60024-60122(1)            Met convergence to     0     0    0.0
+ SINGLE 60025-60052(1)            Met convergence to     0     0    0.0
+ SINGLE 60025-60098(1)            Met convergence to     0     0    0.0
+ SINGLE 60027-60146(1)            Met convergence to     0     0    0.0
+ SINGLE 60027-60146(2)            Met convergence to     0     0    0.0
+ SINGLE 60027-60206(2)            Met convergence to     0     0   42.8
+ SINGLE 60028-60055(1)            Met convergence to     0     0    0.0
+ SINGLE 60028-60103(1)            Met convergence to     0     0    0.0
+ SINGLE 60028-60152(1)            Met convergence to     0     0    0.0
+ SINGLE 60029-60140(1)            Met convergence to     0     0    0.0
+ SINGLE 60029-60168(1)            Met convergence to     0     0    0.0
+ SINGLE 60030-60056(1)            Met convergence to     0     0    0.0
+ SINGLE 60030-60100(1)            Met convergence to     0     0    0.0
+ SINGLE 60031-60043(1)            Met convergence to     0     0    0.0
+ SINGLE 60031-60169(1)            Met convergence to     0     0    0.0
+ SINGLE 60032-60033(1)            Met convergence to     1     0    0.0
+ SINGLE 60032-60033(2)            Met convergence to     1     0    0.0
+ SINGLE 60033-60073(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-60083(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-60083(2)            Met convergence to     0     0    0.0
+ SINGLE 60033-60085(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-60099(1)            Met convergence to     0     2    0.0
+ SINGLE 60033-60137(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-60141(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-60160(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-60166(1)            Met convergence to     0     0    0.0
+ SINGLE 60033-70099(1)            Met convergence to     0     0    0.9
+ SINGLE 60034-60115(1)            Met convergence to     0     0    0.0
+ SINGLE 60034-60166(1)            Met convergence to     0     0    0.0
+ SINGLE 60035-60079(1)            Met convergence to     0     0    0.0
+ SINGLE 60035-60159(1)            Met convergence to     1     0    0.0
+ SINGLE 60035-60211(1)            Met convergence to     0     0    0.0
+ SINGLE 60036-60061(1)            Met convergence to     0     0    0.0
+ SINGLE 60036-60098(1)            Met convergence to     0     0    0.0
+ SINGLE 60036-60212(1)            Met convergence to     0     0    0.0
+ SINGLE 60037-60086(1)            Met convergence to     0     0    0.0
+ SINGLE 60037-60086(2)            Met convergence to     0     0    0.0
+ SINGLE 60037-60094(1)            Met convergence to     0     0    0.0
+ SINGLE 60037-60173(1)            Met convergence to     0     0    0.0
+ SINGLE 60038-60062(1)            Met convergence to     0     0   35.9
+ SINGLE 60038-60146(1)            Met convergence to     0     0    0.0
+ SINGLE 60038-60146(2)            Met convergence to     0     0    0.0
+ SINGLE 60038-60209(1)            Met convergence to     0     0    7.9
+ SINGLE 60038-60210(1)            Met convergence to     3     0    0.0
+ SINGLE 60039-60074(1)            Met convergence to     0     0    0.0
+ SINGLE 60039-60074(2)            Met convergence to     0     0    0.0
+ SINGLE 60040-60068(1)            Met convergence to     0     0    0.0
+ SINGLE 60040-60187(1)            Met convergence to     0     0    0.0
+ SINGLE 60040-60188(2)            Met convergence to     0     0    0.0
+ SINGLE 60041-60183(1)            Met convergence to     0     0    7.3
+ SINGLE 60042-60072(1)            Met convergence to     0     1    0.0
+ SINGLE 60043-60102(1)            Met convergence to     0     0    0.0
+ SINGLE 60043-60102(2)            Met convergence to     0     0    0.0
+ SINGLE 60044-60078(1)            Met convergence to     1     0    0.0
+ SINGLE 60044-60159(1)            Met convergence to     1     0    0.0
+ SINGLE 60045-60051(1)            Met convergence to     0     0    0.0
+ SINGLE 60045-60051(2)            Met convergence to     0     0    0.0
+ SINGLE 60045-60127(1)            Met convergence to     0     0    0.0
+ SINGLE 60045-60127(2)            Met convergence to     0     0    0.0
+ SINGLE 60046-60095(1)            Met convergence to     0     0    0.0
+ SINGLE 60048-60196(1)            Met convergence to     0     0   -8.2
+ SINGLE 60048-60197(1)            Met convergence to     0     0    0.0
+ SINGLE 60048-60198(1)            Met convergence to     0     0    0.0
+ SINGLE 60049-60050(1)            Met convergence to     0     0    0.0
+ SINGLE 60049-60050(2)            Met convergence to     0     0    0.0
+ SINGLE 60049-60132(1)            Met convergence to     0     0    0.0
+ SINGLE 60050-60051(2)            Met convergence to     0     0    0.0
+ SINGLE 60050-60051(3)            Met convergence to     0     0    0.0
+ SINGLE 60050-60082(2)            Met convergence to     0     0    0.0
+ SINGLE 60050-60145(1)            Met convergence to     0     0    0.0
+ SINGLE 60051-60140(1)            Met convergence to     0     0    0.0
+ SINGLE 60051-60203(1)            Met convergence to     0     0    0.0
+ SINGLE 60051-60203(2)            Met convergence to     0     0    0.0
+ SINGLE 60052-60055(1)            Met convergence to     0     0    0.0
+ SINGLE 60052-60061(1)            Met convergence to     0     0    0.0
+ SINGLE 60052-60138(1)            Met convergence to     0     0   12.2
+ SINGLE 60053-60119(1)            Met convergence to     0     0    8.1
+ SINGLE 60054-60068(1)            Met convergence to     0     0    6.2
+ SINGLE 60056-60059(1)            Met convergence to     0     0   10.8
+ SINGLE 60056-60068(1)            Met convergence to     0     4    0.0
+ SINGLE 60058-60065(1)            Met convergence to     0     0    0.0
+ SINGLE 60058-60125(1)            Met convergence to     0     0    0.0
+ SINGLE 60058-60167(1)            Met convergence to     0     0    0.0
+ SINGLE 60060-60063(1)            Met convergence to     0     0    0.0
+ SINGLE 60060-60124(1)            Met convergence to     0     0    0.0
+ SINGLE 60062-60201(1)            Met convergence to     0     0    7.0
+ SINGLE 60063-60091(1)            Met convergence to     0     0    0.0
+ SINGLE 60064-60065(1)            Met convergence to     0    30    0.0
+ SINGLE 60064-60170(1)            Met convergence to     0     0    0.0
+ SINGLE 60065-60075(1)            Blown up              --    --     --
+ SINGLE 60065-60125(1)            Met convergence to     0     0    0.0
+ SINGLE 60065-60191(1)            Met convergence to     0     0    0.9
+ SINGLE 60066-60067(2)            Met convergence to     0     0    0.0
+ SINGLE 60066-60129(1)            Met convergence to     5     0    0.0
+ SINGLE 60066-60132(1)            Met convergence to     0     0    0.0
+ SINGLE 60067-60068(1)            Met convergence to     0     0    0.0
+ SINGLE 60067-60068(2)            Met convergence to     0     0    0.0
+ SINGLE 60067-60090(1)            Met convergence to     0     0    0.0
+ SINGLE 60067-60090(2)            Met convergence to     0     0    0.0
+ SINGLE 60067-60105(1)            Met convergence to     0     0    0.0
+ SINGLE 60067-60105(2)            Met convergence to     0     0    0.0
+ SINGLE 60067-60109(1)            Met convergence to     0     0    0.0
+ SINGLE 60067-60158(1)            Met convergence to     0     0    0.0
+ SINGLE 60068-60121(1)            Met convergence to     0     0    0.0
+ SINGLE 60068-60154(1)            Met convergence to     0     0    0.0
+ SINGLE 60068-60187(1)            Met convergence to     0     0    0.0
+ SINGLE 60070-60173(1)            Met convergence to     0     0    0.0
+ SINGLE 60071-60072(1)            Met convergence to     0     0    0.0
+ SINGLE 60071-60072(3)            Met convergence to     0     0    0.0
+ SINGLE 60071-60151(1)            Met convergence to     0     0    0.0
+ SINGLE 60071-60170(2)            Met convergence to     0     0    0.0
+ SINGLE 60072-60103(1)            Met convergence to     0     0    0.0
+ SINGLE 60072-60103(2)            Met convergence to     0     0    0.0
+ SINGLE 60072-60112(1)            Met convergence to     0     0    0.0
+ SINGLE 60072-60126(1)            Met convergence to     0     0    0.0
+ SINGLE 60072-60130(1)            Met convergence to     0     0    0.0
+ SINGLE 60072-60130(2)            Met convergence to     0     0    0.0
+ SINGLE 60072-60135(1)            Met convergence to     0     0    0.0
+ SINGLE 60072-60135(2)            Met convergence to     0     0    0.0
+ SINGLE 60072-60167(1)            Met convergence to     0     0    0.0
+ SINGLE 60072-70097(1)            Met convergence to     0     0   11.0
+ SINGLE 60073-60083(1)            Met convergence to     0     0    0.0
+ SINGLE 60073-60113(1)            Met convergence to     0     0    0.0
+ SINGLE 60074-60123(1)            Met convergence to     0     0    0.0
+ SINGLE 60074-60155(1)            Met convergence to     1     0    0.0
+ SINGLE 60074-60182(1)            Met convergence to     0     0   36.2
+ SINGLE 60075-60096(1)            Blown up              --    --     --
+ SINGLE 60076-60141(1)            Met convergence to     0     0    5.9
+ SINGLE 60077-60079(1)            Met convergence to     0     0    0.0
+ SINGLE 60077-60144(1)            Met convergence to     0     0    0.0
+ SINGLE 60078-60088(1)            Met convergence to     0     0    3.9
+ SINGLE 60078-60100(1)            Met convergence to     0     0    0.0
+ SINGLE 60079-60133(1)            Met convergence to     0     0    0.0
+ SINGLE 60079-60143(1)            Met convergence to     0     0    0.0
+ SINGLE 60079-60184(1)            Met convergence to     0     0    0.0
+ SINGLE 60079-60186(1)            Met convergence to     0     0    0.0
+ SINGLE 60081-60201(1)            Met convergence to     0     0   10.1
+ SINGLE 60083-60084(1)            Met convergence to     0     0    0.0
+ SINGLE 60084-60085(1)            Met convergence to     0     0    0.0
+ SINGLE 60087-60157(1)            Met convergence to     0     0    6.6
+ SINGLE 60089-60095(1)            Met convergence to     0     0    0.0
+ SINGLE 60089-60192(1)            Met convergence to     0     7    0.0
+ SINGLE 60090-60091(1)            Met convergence to     0     0    0.0
+ SINGLE 60090-60091(2)            Met convergence to     0     0    0.0
+ SINGLE 60090-60158(1)            Met convergence to     0     0    0.0
+ SINGLE 60091-60121(1)            Met convergence to     0     0    0.0
+ SINGLE 60091-60154(1)            Met convergence to     0     0    0.0
+ SINGLE 60091-60190(1)            Met convergence to     0     0    0.0
+ SINGLE 60091-60190(2)            Met convergence to     0     0    0.0
+ SINGLE 60091-60190(3)            Met convergence to     0     0    0.0
+ SINGLE 60092-70097(1)            Met convergence to     0     0   11.0
+ SINGLE 60093-60102(1)            Met convergence to     0     0    0.0
+ SINGLE 60093-60102(2)            Met convergence to     0     0    0.0
+ SINGLE 60093-60142(1)            Met convergence to     0     0    0.0
+ SINGLE 60094-60148(1)            Met convergence to     0     0    0.0
+ SINGLE 60095-60193(1)            Met convergence to     0     0    0.0
+ SINGLE 60096-60114(1)            Met convergence to     0    30    0.0
+ SINGLE 60097-60112(1)            Met convergence to     0     0    0.0
+ SINGLE 60097-60149(1)            Met convergence to     0     0    0.0
+ SINGLE 60101-60125(1)            Met convergence to     0     0    8.9
+ SINGLE 60102-60107(1)            Met convergence to     0     0    0.0
+ SINGLE 60102-60107(2)            Met convergence to     0     0    0.0
+ SINGLE 60102-60117(1)            Met convergence to     0     0    0.0
+ SINGLE 60102-60117(2)            Met convergence to     0     0    0.0
+ SINGLE 60102-60122(1)            Met convergence to     0     0    0.0
+ SINGLE 60102-60130(1)            Met convergence to     0     0    0.0
+ SINGLE 60102-60130(2)            Met convergence to     0     0    0.0
+ SINGLE 60103-60126(1)            Met convergence to     0     0    0.0
+ SINGLE 60103-60126(2)            Met convergence to     0     0    0.0
+ SINGLE 60103-60213(1)            Met convergence to     0     0    0.0
+ SINGLE 60104-60156(1)            Met convergence to     0     0    0.0
+ SINGLE 60104-60202(1)            Met convergence to     0     0    0.0
+ SINGLE 60106-60136(1)            Met convergence to     0     0    0.0
+ SINGLE 60106-60193(1)            Met convergence to     0     0    0.0
+ SINGLE 60107-60147(1)            Met convergence to     0     0    0.0
+ SINGLE 60108-60126(1)            Met convergence to     0     0   25.1
+ SINGLE 60109-60157(1)            Met convergence to     3     0    0.0
+ SINGLE 60110-60128(1)            Met convergence to     0     0    0.0
+ SINGLE 60110-70124(1)            Met convergence to     0     0    0.0
+ SINGLE 60111-60156(1)            Met convergence to     1     0    0.0
+ SINGLE 60111-60205(1)            Met convergence to     0     0    0.0
+ SINGLE 60113-60139(1)            Met convergence to     0     0    0.0
+ SINGLE 60114-60115(1)            Met convergence to     0     0    0.0
+ SINGLE 60116-60126(1)            Met convergence to     0     0    0.0
+ SINGLE 60118-60195(1)            Met convergence to     0     0   -0.8
+ SINGLE 60118-60196(1)            Met convergence to     0     0   -8.2
+ SINGLE 60119-60182(1)            Met convergence to     0     0   27.8
+ SINGLE 60120-60140(1)            Met convergence to     0     0    0.0
+ SINGLE 60120-60140(2)            Met convergence to     0     0    0.0
+ SINGLE 60122-60173(1)            Met convergence to     0     0    0.0
+ SINGLE 60123-60142(1)            Met convergence to     0     0    0.0
+ SINGLE 60123-60152(1)            Met convergence to     0     0    0.0
+ SINGLE 60124-60128(1)            Met convergence to     0     0    0.0
+ SINGLE 60124-60158(1)            Met convergence to     0     0    0.0
+ SINGLE 60124-60158(2)            Met convergence to     0     0    0.0
+ SINGLE 60124-60161(1)            Met convergence to     0     0    0.0
+ SINGLE 60124-60161(2)            Met convergence to     0     0    0.0
+ SINGLE 60124-60192(1)            Met convergence to     1    10    0.0
+ SINGLE 60125-60149(1)            Met convergence to     0     0    0.0
+ SINGLE 60125-60170(1)            Met convergence to     0     0    0.0
+ SINGLE 60126-60189(1)            Met convergence to     0     0    0.0
+ SINGLE 60127-60204(1)            Met convergence to     0     0    0.0
+ SINGLE 60128-60136(1)            Met convergence to     0     0    0.0
+ SINGLE 60129-60130(1)            Met convergence to     1     0    0.0
+ SINGLE 60129-60130(2)            Met convergence to     1     0    0.0
+ SINGLE 60129-60150(1)            Met convergence to     0     0    0.0
+ SINGLE 60130-60147(1)            Met convergence to     0     0    0.0
+ SINGLE 60130-60148(1)            Met convergence to     0     0    0.0
+ SINGLE 60130-60172(1)            Met convergence to     0     0    0.0
+ SINGLE 60130-70172(1)            Met convergence to     0     0    0.0
+ SINGLE 60132-60133(1)            Met convergence to     0     0    0.0
+ SINGLE 60134-60157(1)            Met convergence to     0     0    0.0
+ SINGLE 60137-60141(1)            Met convergence to     0     0    0.0
+ SINGLE 60137-60153(1)            Met convergence to     0     0    0.0
+ SINGLE 60137-60166(1)            Met convergence to     0     0    0.0
+ SINGLE 60140-60146(1)            Met convergence to     0     0    0.0
+ SINGLE 60140-60168(1)            Met convergence to     0     0    0.0
+ SINGLE 60140-60174(1)            Met convergence to     0     0   15.4
+ SINGLE 60140-70174(1)            Met convergence to     0     0   15.6
+ SINGLE 60143-60144(1)            Met convergence to     0     0    0.0
+ SINGLE 60145-60146(1)            Met convergence to     0     0    0.0
+ SINGLE 60146-60168(2)            Met convergence to     0     0    0.0
+ SINGLE 60150-60151(1)            Met convergence to     0     0    0.0
+ SINGLE 60150-60152(1)            Met convergence to     0     0    0.0
+ SINGLE 60150-60152(2)            Met convergence to     0     0    0.0
+ SINGLE 60152-60213(1)            Met convergence to     0     0    0.0
+ SINGLE 60153-60166(1)            Met convergence to     0     0    0.0
+ SINGLE 60155-60212(1)            Met convergence to     0     0    0.0
+ SINGLE 60158-70124(1)            Met convergence to     0     0    0.0
+ SINGLE 60160-60166(1)            Met convergence to     0     0    0.0
+ SINGLE 60161-60164(1)            Met convergence to     0     0    6.0
+ SINGLE 60168-60205(1)            Met convergence to     0     0    0.0
+ SINGLE 60169-60189(1)            Met convergence to     0     0    0.0
+ SINGLE 60173-60188(1)            Met convergence to     0     0    0.0
+ SINGLE 60178-60195(1)            Met convergence to     0     0   -0.8
+ SINGLE 60178-60207(1)            Met convergence to     0     0   14.3
+ SINGLE 60183-60209(1)            Met convergence to     0     0    7.9
+ SINGLE 60194-60208(1)            Met convergence to     0     0    0.0
+ SINGLE 60197-60198(1)            Met convergence to     0     0    0.0
+ SINGLE 60198-60199(1)            Met convergence to     0     0    0.0
+ SINGLE 60198-60199(2)            Met convergence to     0     0    0.0
+ SINGLE 60200-60201(1)            Met convergence to     0     0   -8.2
+ SINGLE 60202-60210(1)            Met convergence to     0     0    0.0
+ SINGLE 60204-60208(1)            Met convergence to     0     0    0.0
+ SINGLE 60206-60207(1)            Met convergence to     0     0   27.6
+
+ CONTINGENCY LEGEND:
+ <----- CONTINGENCY LABEL ------>  EVENTS
+ SINGLE 122-60008(1)             : OPEN LINE FROM BUS 122 [HVEPAD2     220.00] TO BUS 60008 [HBRINJ2     220.00] CKT 1
+ SINGLE 122-60050(1)             : OPEN LINE FROM BUS 122 [HVEPAD2     220.00] TO BUS 60050 [HKONJS2     220.00] CKT 1
+ SINGLE 126-60051(1)             : OPEN LINE FROM BUS 126 [HT-SPO5     110.00] TO BUS 60051 [HKONJS5     110.00] CKT 1
+ SINGLE 126-60162(1)             : OPEN LINE FROM BUS 126 [HT-SPO5     110.00] TO BUS 60162 [HDJALE5     110.00] CKT 1
+ SINGLE 126-60168(1)             : OPEN LINE FROM BUS 126 [HT-SPO5     110.00] TO BUS 60168 [HMETER5     110.00] CKT 1
+ SINGLE 374-60020(1)             : OPEN LINE FROM BUS 374 [HMEDUL5     110.00] TO BUS 60020 [HDOLIN5     110.00] CKT 1
+ SINGLE 374-60161(1)             : OPEN LINE FROM BUS 374 [HMEDUL5     110.00] TO BUS 60161 [HRASHA5     110.00] CKT 1
+ SINGLE 60000-60114(1)           : OPEN LINE FROM BUS 60000 [HANDRI5     110.00] TO BUS 60114 [HSLBR15     110.00] CKT 1
+ SINGLE 60000-60166(1)           : OPEN LINE FROM BUS 60000 [HANDRI5     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60001-60003(1)           : OPEN LINE FROM BUS 60001 [HBENKO5     110.00] TO BUS 60003 [HBILIC5     110.00] CKT 1
+ SINGLE 60001-60184(1)           : OPEN LINE FROM BUS 60001 [HBENKO5     110.00] TO BUS 60184 [HVEBRU5     110.00] CKT 1
+ SINGLE 60002-60003(1)           : OPEN LINE FROM BUS 60002 [HBILIC2     220.00] TO BUS 60003 [HBILIC5     110.00] CKT 1
+ SINGLE 60002-60003(2)           : OPEN LINE FROM BUS 60002 [HBILIC2     220.00] TO BUS 60003 [HBILIC5     110.00] CKT 2
+ SINGLE 60002-60050(1)           : OPEN LINE FROM BUS 60002 [HBILIC2     220.00] TO BUS 60050 [HKONJS2     220.00] CKT 1
+ SINGLE 60002-60050(2)           : OPEN LINE FROM BUS 60002 [HBILIC2     220.00] TO BUS 60050 [HKONJS2     220.00] CKT 2
+ SINGLE 60002-60145(1)           : OPEN LINE FROM BUS 60002 [HBILIC2     220.00] TO BUS 60145 [HZAKUC2     220.00] CKT 1
+ SINGLE 60003-60004(1)           : OPEN LINE FROM BUS 60003 [HBILIC5     110.00] TO BUS 60004 [HBIOGR5     110.00] CKT 1
+ SINGLE 60003-60022(1)           : OPEN LINE FROM BUS 60003 [HBILIC5     110.00] TO BUS 60022 [HDRNIS5     110.00] CKT 1
+ SINGLE 60003-60171(2)           : OPEN LINE FROM BUS 60003 [HBILIC5     110.00] TO BUS 60171 [HRAZIN5     110.00] CKT 2
+ SINGLE 60003-60194(1)           : OPEN LINE FROM BUS 60003 [HBILIC5     110.00] TO BUS 60194 [HVEGLA5     110.00] CKT 1
+ SINGLE 60004-60143(1)           : OPEN LINE FROM BUS 60004 [HBIOGR5     110.00] TO BUS 60143 [HZADAR5     110.00] CKT 1
+ SINGLE 60005-60042(1)           : OPEN LINE FROM BUS 60005 [HBJELO5     110.00] TO BUS 60042 [HIVANI5     110.00] CKT 1
+ SINGLE 60005-60052(1)           : OPEN LINE FROM BUS 60005 [HBJELO5     110.00] TO BUS 60052 [HKOPRI5     110.00] CKT 1
+ SINGLE 60005-60069(1)           : OPEN LINE FROM BUS 60005 [HBJELO5     110.00] TO BUS 60069 [HMLINO5     110.00] CKT 1
+ SINGLE 60006-60099(1)           : OPEN LINE FROM BUS 60006 [HBMANA5     110.00] TO BUS 60099 [HPTEOS51    110.00] CKT 1
+ SINGLE 60006-60131(1)           : OPEN LINE FROM BUS 60006 [HBMANA5     110.00] TO BUS 60131 [HVALPO5     110.00] CKT 1
+ SINGLE 60007-60043(1)           : OPEN LINE FROM BUS 60007 [HBOTIN5     110.00] TO BUS 60043 [HJARUN5     110.00] CKT 1
+ SINGLE 60007-60043(2)           : OPEN LINE FROM BUS 60007 [HBOTIN5     110.00] TO BUS 60043 [HJARUN5     110.00] CKT 2
+ SINGLE 60007-60116(1)           : OPEN LINE FROM BUS 60007 [HBOTIN5     110.00] TO BUS 60116 [HSOPOT5     110.00] CKT 1
+ SINGLE 60007-60126(1)           : OPEN LINE FROM BUS 60007 [HBOTIN5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 1
+ SINGLE 60007-60126(2)           : OPEN LINE FROM BUS 60007 [HBOTIN5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 2
+ SINGLE 60007-60130(1)           : OPEN LINE FROM BUS 60007 [HBOTIN5     110.00] TO BUS 60130 [HTUMBR5     110.00] CKT 1
+ SINGLE 60008-60109(1)           : OPEN LINE FROM BUS 60008 [HBRINJ2     220.00] TO BUS 60109 [HSENJ 2     220.00] CKT 1
+ SINGLE 60009-60011(1)           : OPEN LINE FROM BUS 60009 [HBUJE 5     110.00] TO BUS 60011 [HBUZET5     110.00] CKT 1
+ SINGLE 60009-60046(1)           : OPEN LINE FROM BUS 60009 [HBUJE 5     110.00] TO BUS 60046 [HKATOR5     110.00] CKT 1
+ SINGLE 60010-60011(1)           : OPEN LINE FROM BUS 60010 [HBUTON5     110.00] TO BUS 60011 [HBUZET5     110.00] CKT 1
+ SINGLE 60010-60089(1)           : OPEN LINE FROM BUS 60010 [HBUTON5     110.00] TO BUS 60089 [HPAZIN5     110.00] CKT 1
+ SINGLE 60012-60036(1)           : OPEN LINE FROM BUS 60012 [HCAKOV5     110.00] TO BUS 60036 [HHECAK5     110.00] CKT 1
+ SINGLE 60012-60074(1)           : OPEN LINE FROM BUS 60012 [HCAKOV5     110.00] TO BUS 60074 [HNEDEL5     110.00] CKT 1
+ SINGLE 60013-60040(1)           : OPEN LINE FROM BUS 60013 [HCRIKV5     110.00] TO BUS 60040 [HHEVIN5     110.00] CKT 1
+ SINGLE 60013-60134(1)           : OPEN LINE FROM BUS 60013 [HCRIKV5     110.00] TO BUS 60134 [HVEVRA5     110.00] CKT 1
+ SINGLE 60014-60166(1)           : OPEN LINE FROM BUS 60014 [HDAKO25     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60017-60070(1)           : OPEN LINE FROM BUS 60017 [HDELNI5     110.00] TO BUS 60070 [HMORAV5     110.00] CKT 1
+ SINGLE 60017-60188(1)           : OPEN LINE FROM BUS 60017 [HDELNI5     110.00] TO BUS 60188 [HVRATA5     110.00] CKT 1
+ SINGLE 60019-60045(1)           : OPEN LINE FROM BUS 60019 [HDOBRI5     110.00] TO BUS 60045 [HKASTE5     110.00] CKT 1
+ SINGLE 60019-60120(1)           : OPEN LINE FROM BUS 60019 [HDOBRI5     110.00] TO BUS 60120 [HSUCID5     110.00] CKT 1
+ SINGLE 60020-60110(1)           : OPEN LINE FROM BUS 60020 [HDOLIN5     110.00] TO BUS 60110 [HSIJAN5     110.00] CKT 1
+ SINGLE 60021-60073(1)           : OPEN LINE FROM BUS 60021 [HDONJM5     110.00] TO BUS 60073 [HNASIC5     110.00] CKT 1
+ SINGLE 60021-60131(1)           : OPEN LINE FROM BUS 60021 [HDONJM5     110.00] TO BUS 60131 [HVALPO5     110.00] CKT 1
+ SINGLE 60022-60047(1)           : OPEN LINE FROM BUS 60022 [HDRNIS5     110.00] TO BUS 60047 [HKNIN 5     110.00] CKT 1
+ SINGLE 60023-60057(1)           : OPEN LINE FROM BUS 60023 [HDUBEC5     110.00] TO BUS 60057 [HKSAVE5     110.00] CKT 1
+ SINGLE 60023-60057(2)           : OPEN LINE FROM BUS 60023 [HDUBEC5     110.00] TO BUS 60057 [HKSAVE5     110.00] CKT 2
+ SINGLE 60023-60103(1)           : OPEN LINE FROM BUS 60023 [HDUBEC5     110.00] TO BUS 60103 [HRESNI5     110.00] CKT 1
+ SINGLE 60023-60103(2)           : OPEN LINE FROM BUS 60023 [HDUBEC5     110.00] TO BUS 60103 [HRESNI5     110.00] CKT 2
+ SINGLE 60023-60152(1)           : OPEN LINE FROM BUS 60023 [HDUBEC5     110.00] TO BUS 60152 [HZERJA5     110.00] CKT 1
+ SINGLE 60023-60152(2)           : OPEN LINE FROM BUS 60023 [HDUBEC5     110.00] TO BUS 60152 [HZERJA5     110.00] CKT 2
+ SINGLE 60024-60094(1)           : OPEN LINE FROM BUS 60024 [HDUBOV5     110.00] TO BUS 60094 [HPOKUP5     110.00] CKT 1
+ SINGLE 60024-60122(1)           : OPEN LINE FROM BUS 60024 [HDUBOV5     110.00] TO BUS 60122 [HSVARC5     110.00] CKT 1
+ SINGLE 60025-60052(1)           : OPEN LINE FROM BUS 60025 [HDUBRA5     110.00] TO BUS 60052 [HKOPRI5     110.00] CKT 1
+ SINGLE 60025-60098(1)           : OPEN LINE FROM BUS 60025 [HDUBRA5     110.00] TO BUS 60098 [HPRELO5     110.00] CKT 1
+ SINGLE 60027-60146(1)           : OPEN LINE FROM BUS 60027 [HDUGIR5     110.00] TO BUS 60146 [HZAKUC5     110.00] CKT 1
+ SINGLE 60027-60146(2)           : OPEN LINE FROM BUS 60027 [HDUGIR5     110.00] TO BUS 60146 [HZAKUC5     110.00] CKT 2
+ SINGLE 60027-60206(2)           : OPEN LINE FROM BUS 60027 [HDUGIR5     110.00] TO BUS 60206 [HNEREZ5     110.00] CKT 2
+ SINGLE 60028-60055(1)           : OPEN LINE FROM BUS 60028 [HDUGOS5     110.00] TO BUS 60055 [HKRIZE5     110.00] CKT 1
+ SINGLE 60028-60103(1)           : OPEN LINE FROM BUS 60028 [HDUGOS5     110.00] TO BUS 60103 [HRESNI5     110.00] CKT 1
+ SINGLE 60028-60152(1)           : OPEN LINE FROM BUS 60028 [HDUGOS5     110.00] TO BUS 60152 [HZERJA5     110.00] CKT 1
+ SINGLE 60029-60140(1)           : OPEN LINE FROM BUS 60029 [HDUJMO5     110.00] TO BUS 60140 [HVRBOR5     110.00] CKT 1
+ SINGLE 60029-60168(1)           : OPEN LINE FROM BUS 60029 [HDUJMO5     110.00] TO BUS 60168 [HMETER5     110.00] CKT 1
+ SINGLE 60030-60056(1)           : OPEN LINE FROM BUS 60030 [HDUNAT5     110.00] TO BUS 60056 [HKRK  5     110.00] CKT 1
+ SINGLE 60030-60100(1)           : OPEN LINE FROM BUS 60030 [HDUNAT5     110.00] TO BUS 60100 [HRAB  5     110.00] CKT 1
+ SINGLE 60031-60043(1)           : OPEN LINE FROM BUS 60031 [HELTO 5     110.00] TO BUS 60043 [HJARUN5     110.00] CKT 1
+ SINGLE 60031-60169(1)           : OPEN LINE FROM BUS 60031 [HELTO 5     110.00] TO BUS 60169 [HTRPIM5     110.00] CKT 1
+ SINGLE 60032-60033(1)           : OPEN LINE FROM BUS 60032 [HERNES1     400.00] TO BUS 60033 [HERNES5     110.00] CKT 1
+ SINGLE 60032-60033(2)           : OPEN LINE FROM BUS 60032 [HERNES1     400.00] TO BUS 60033 [HERNES5     110.00] CKT 2
+ SINGLE 60033-60073(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60073 [HNASIC5     110.00] CKT 1
+ SINGLE 60033-60083(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60083 [HOSIJ15     110.00] CKT 1
+ SINGLE 60033-60083(2)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60083 [HOSIJ15     110.00] CKT 2
+ SINGLE 60033-60085(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60085 [HOSIJ45     110.00] CKT 1
+ SINGLE 60033-60099(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60099 [HPTEOS51    110.00] CKT 1
+ SINGLE 60033-60137(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60137 [HVINKO5     110.00] CKT 1
+ SINGLE 60033-60141(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60141 [HVUKOV5     110.00] CKT 1
+ SINGLE 60033-60160(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60160 [HDAKO35     110.00] CKT 1
+ SINGLE 60033-60166(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60033-70099(1)           : OPEN LINE FROM BUS 60033 [HERNES5     110.00] TO BUS 70099 [HPTEOS52    110.00] CKT 1
+ SINGLE 60034-60115(1)           : OPEN LINE FROM BUS 60034 [HEVPAN5     110.00] TO BUS 60115 [HSLBR25     110.00] CKT 1
+ SINGLE 60034-60166(1)           : OPEN LINE FROM BUS 60034 [HEVPAN5     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60035-60079(1)           : OPEN LINE FROM BUS 60035 [HGRACA5     110.00] TO BUS 60079 [HOBROV5     110.00] CKT 1
+ SINGLE 60035-60159(1)           : OPEN LINE FROM BUS 60035 [HGRACA5     110.00] TO BUS 60159 [HLIOSI5     110.00] CKT 1
+ SINGLE 60035-60211(1)           : OPEN LINE FROM BUS 60035 [HGRACA5     110.00] TO BUS 60211 [HVEVPO5     110.00] CKT 1
+ SINGLE 60036-60061(1)           : OPEN LINE FROM BUS 60036 [HHECAK5     110.00] TO BUS 60061 [HLUDBR5     110.00] CKT 1
+ SINGLE 60036-60098(1)           : OPEN LINE FROM BUS 60036 [HHECAK5     110.00] TO BUS 60098 [HPRELO5     110.00] CKT 1
+ SINGLE 60036-60212(1)           : OPEN LINE FROM BUS 60036 [HHECAK5     110.00] TO BUS 60212 [HKNEGI5     110.00] CKT 1
+ SINGLE 60037-60086(1)           : OPEN LINE FROM BUS 60037 [HHEGOJ5     110.00] TO BUS 60086 [HOSTAR5     110.00] CKT 1
+ SINGLE 60037-60086(2)           : OPEN LINE FROM BUS 60037 [HHEGOJ5     110.00] TO BUS 60086 [HOSTAR5     110.00] CKT 2
+ SINGLE 60037-60094(1)           : OPEN LINE FROM BUS 60037 [HHEGOJ5     110.00] TO BUS 60094 [HPOKUP5     110.00] CKT 1
+ SINGLE 60037-60173(1)           : OPEN LINE FROM BUS 60037 [HHEGOJ5     110.00] TO BUS 60173 [HVRBOV5     110.00] CKT 1
+ SINGLE 60038-60062(1)           : OPEN LINE FROM BUS 60038 [HHEKRA5     110.00] TO BUS 60062 [HMAKAR5     110.00] CKT 1
+ SINGLE 60038-60146(1)           : OPEN LINE FROM BUS 60038 [HHEKRA5     110.00] TO BUS 60146 [HZAKUC5     110.00] CKT 1
+ SINGLE 60038-60146(2)           : OPEN LINE FROM BUS 60038 [HHEKRA5     110.00] TO BUS 60146 [HZAKUC5     110.00] CKT 2
+ SINGLE 60038-60209(1)           : OPEN LINE FROM BUS 60038 [HHEKRA5     110.00] TO BUS 60209 [HVEKAT5     110.00] CKT 1
+ SINGLE 60038-60210(1)           : OPEN LINE FROM BUS 60038 [HHEKRA5     110.00] TO BUS 60210 [HVELUK5     110.00] CKT 1
+ SINGLE 60039-60074(1)           : OPEN LINE FROM BUS 60039 [HHEVAR5     110.00] TO BUS 60074 [HNEDEL5     110.00] CKT 1
+ SINGLE 60039-60074(2)           : OPEN LINE FROM BUS 60039 [HHEVAR5     110.00] TO BUS 60074 [HNEDEL5     110.00] CKT 2
+ SINGLE 60040-60068(1)           : OPEN LINE FROM BUS 60040 [HHEVIN5     110.00] TO BUS 60068 [HMELIN5     110.00] CKT 1
+ SINGLE 60040-60187(1)           : OPEN LINE FROM BUS 60040 [HHEVIN5     110.00] TO BUS 60187 [HPLASE5     110.00] CKT 1
+ SINGLE 60040-60188(2)           : OPEN LINE FROM BUS 60040 [HHEVIN5     110.00] TO BUS 60188 [HVRATA5     110.00] CKT 2
+ SINGLE 60041-60183(1)           : OPEN LINE FROM BUS 60041 [HIMOTS5     110.00] TO BUS 60183 [HZAGVO5     110.00] CKT 1
+ SINGLE 60042-60072(1)           : OPEN LINE FROM BUS 60042 [HIVANI5     110.00] TO BUS 60072 [HMRACL5     110.00] CKT 1
+ SINGLE 60043-60102(1)           : OPEN LINE FROM BUS 60043 [HJARUN5     110.00] TO BUS 60102 [HRAKIT5     110.00] CKT 1
+ SINGLE 60043-60102(2)           : OPEN LINE FROM BUS 60043 [HJARUN5     110.00] TO BUS 60102 [HRAKIT5     110.00] CKT 2
+ SINGLE 60044-60078(1)           : OPEN LINE FROM BUS 60044 [HKARLO5     110.00] TO BUS 60078 [HNOVAL5     110.00] CKT 1
+ SINGLE 60044-60159(1)           : OPEN LINE FROM BUS 60044 [HKARLO5     110.00] TO BUS 60159 [HLIOSI5     110.00] CKT 1
+ SINGLE 60045-60051(1)           : OPEN LINE FROM BUS 60045 [HKASTE5     110.00] TO BUS 60051 [HKONJS5     110.00] CKT 1
+ SINGLE 60045-60051(2)           : OPEN LINE FROM BUS 60045 [HKASTE5     110.00] TO BUS 60051 [HKONJS5     110.00] CKT 2
+ SINGLE 60045-60127(1)           : OPEN LINE FROM BUS 60045 [HKASTE5     110.00] TO BUS 60127 [HTROGI5     110.00] CKT 1
+ SINGLE 60045-60127(2)           : OPEN LINE FROM BUS 60045 [HKASTE5     110.00] TO BUS 60127 [HTROGI5     110.00] CKT 2
+ SINGLE 60046-60095(1)           : OPEN LINE FROM BUS 60046 [HKATOR5     110.00] TO BUS 60095 [HPOREC5     110.00] CKT 1
+ SINGLE 60048-60196(1)           : OPEN LINE FROM BUS 60048 [HKOMOL5     110.00] TO BUS 60196 [HRUDIN5     110.00] CKT 1
+ SINGLE 60048-60197(1)           : OPEN LINE FROM BUS 60048 [HKOMOL5     110.00] TO BUS 60197 [HSRD  5     110.00] CKT 1
+ SINGLE 60048-60198(1)           : OPEN LINE FROM BUS 60048 [HKOMOL5     110.00] TO BUS 60198 [HPLAT 5     110.00] CKT 1
+ SINGLE 60049-60050(1)           : OPEN LINE FROM BUS 60049 [HKONJS1     400.00] TO BUS 60050 [HKONJS2     220.00] CKT 1
+ SINGLE 60049-60050(2)           : OPEN LINE FROM BUS 60049 [HKONJS1     400.00] TO BUS 60050 [HKONJS2     220.00] CKT 2
+ SINGLE 60049-60132(1)           : OPEN LINE FROM BUS 60049 [HKONJS1     400.00] TO BUS 60132 [HVELEB1     400.00] CKT 1
+ SINGLE 60050-60051(2)           : OPEN LINE FROM BUS 60050 [HKONJS2     220.00] TO BUS 60051 [HKONJS5     110.00] CKT 2
+ SINGLE 60050-60051(3)           : OPEN LINE FROM BUS 60050 [HKONJS2     220.00] TO BUS 60051 [HKONJS5     110.00] CKT 3
+ SINGLE 60050-60082(2)           : OPEN LINE FROM BUS 60050 [HKONJS2     220.00] TO BUS 60082 [HORLOV2     220.00] CKT 2
+ SINGLE 60050-60145(1)           : OPEN LINE FROM BUS 60050 [HKONJS2     220.00] TO BUS 60145 [HZAKUC2     220.00] CKT 1
+ SINGLE 60051-60140(1)           : OPEN LINE FROM BUS 60051 [HKONJS5     110.00] TO BUS 60140 [HVRBOR5     110.00] CKT 1
+ SINGLE 60051-60203(1)           : OPEN LINE FROM BUS 60051 [HKONJS5     110.00] TO BUS 60203 [HOGORJ5     110.00] CKT 1
+ SINGLE 60051-60203(2)           : OPEN LINE FROM BUS 60051 [HKONJS5     110.00] TO BUS 60203 [HOGORJ5     110.00] CKT 2
+ SINGLE 60052-60055(1)           : OPEN LINE FROM BUS 60052 [HKOPRI5     110.00] TO BUS 60055 [HKRIZE5     110.00] CKT 1
+ SINGLE 60052-60061(1)           : OPEN LINE FROM BUS 60052 [HKOPRI5     110.00] TO BUS 60061 [HLUDBR5     110.00] CKT 1
+ SINGLE 60052-60138(1)           : OPEN LINE FROM BUS 60052 [HKOPRI5     110.00] TO BUS 60138 [HVIRJE5     110.00] CKT 1
+ SINGLE 60053-60119(1)           : OPEN LINE FROM BUS 60053 [HKRAPI5     110.00] TO BUS 60119 [HSTRAZ5     110.00] CKT 1
+ SINGLE 60054-60068(1)           : OPEN LINE FROM BUS 60054 [HKRASI5     110.00] TO BUS 60068 [HMELIN5     110.00] CKT 1
+ SINGLE 60056-60059(1)           : OPEN LINE FROM BUS 60056 [HKRK  5     110.00] TO BUS 60059 [HLOSIN5     110.00] CKT 1
+ SINGLE 60056-60068(1)           : OPEN LINE FROM BUS 60056 [HKRK  5     110.00] TO BUS 60068 [HMELIN5     110.00] CKT 1
+ SINGLE 60058-60065(1)           : OPEN LINE FROM BUS 60058 [HKUTIN5     110.00] TO BUS 60065 [HMEDUR5     110.00] CKT 1
+ SINGLE 60058-60125(1)           : OPEN LINE FROM BUS 60058 [HKUTIN5     110.00] TO BUS 60125 [HTESIS5     110.00] CKT 1
+ SINGLE 60058-60167(1)           : OPEN LINE FROM BUS 60058 [HKUTIN5     110.00] TO BUS 60167 [HLUDIN5     110.00] CKT 1
+ SINGLE 60060-60063(1)           : OPEN LINE FROM BUS 60060 [HLOVRA5     110.00] TO BUS 60063 [HMATUL5     110.00] CKT 1
+ SINGLE 60060-60124(1)           : OPEN LINE FROM BUS 60060 [HLOVRA5     110.00] TO BUS 60124 [HTEPLO51    110.00] CKT 1
+ SINGLE 60062-60201(1)           : OPEN LINE FROM BUS 60062 [HMAKAR5     110.00] TO BUS 60201 [HPLOCE5     110.00] CKT 1
+ SINGLE 60063-60091(1)           : OPEN LINE FROM BUS 60063 [HMATUL5     110.00] TO BUS 60091 [HPEHLI5     110.00] CKT 1
+ SINGLE 60064-60065(1)           : OPEN LINE FROM BUS 60064 [HMEDUR2     220.00] TO BUS 60065 [HMEDUR5     110.00] CKT 1
+ SINGLE 60064-60170(1)           : OPEN LINE FROM BUS 60064 [HMEDUR2     220.00] TO BUS 60170 [HTESIS2     220.00] CKT 1
+ SINGLE 60065-60125(1)           : OPEN LINE FROM BUS 60065 [HMEDUR5     110.00] TO BUS 60125 [HTESIS5     110.00] CKT 1
+ SINGLE 60065-60191(1)           : OPEN LINE FROM BUS 60065 [HMEDUR5     110.00] TO BUS 60191 [HEVPNO5     110.00] CKT 1
+ SINGLE 60066-60067(2)           : OPEN LINE FROM BUS 60066 [HMELIN1     400.00] TO BUS 60067 [HMELIN2     220.00] CKT 2
+ SINGLE 60066-60129(1)           : OPEN LINE FROM BUS 60066 [HMELIN1     400.00] TO BUS 60129 [HTUMBR1     400.00] CKT 1
+ SINGLE 60066-60132(1)           : OPEN LINE FROM BUS 60066 [HMELIN1     400.00] TO BUS 60132 [HVELEB1     400.00] CKT 1
+ SINGLE 60067-60068(1)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60068 [HMELIN5     110.00] CKT 1
+ SINGLE 60067-60068(2)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60068 [HMELIN5     110.00] CKT 2
+ SINGLE 60067-60090(1)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60090 [HPEHLI2     220.00] CKT 1
+ SINGLE 60067-60090(2)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60090 [HPEHLI2     220.00] CKT 2
+ SINGLE 60067-60105(1)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60105 [HRIJEK2     220.00] CKT 1
+ SINGLE 60067-60105(2)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60105 [HRIJEK2     220.00] CKT 2
+ SINGLE 60067-60109(1)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60109 [HSENJ 2     220.00] CKT 1
+ SINGLE 60067-60158(1)           : OPEN LINE FROM BUS 60067 [HMELIN2     220.00] TO BUS 60158 [HTEPLO2     220.00] CKT 1
+ SINGLE 60068-60121(1)           : OPEN LINE FROM BUS 60068 [HMELIN5     110.00] TO BUS 60121 [HSUSAK5     110.00] CKT 1
+ SINGLE 60068-60154(1)           : OPEN LINE FROM BUS 60068 [HMELIN5     110.00] TO BUS 60154 [HRIJEK5     110.00] CKT 1
+ SINGLE 60068-60187(1)           : OPEN LINE FROM BUS 60068 [HMELIN5     110.00] TO BUS 60187 [HPLASE5     110.00] CKT 1
+ SINGLE 60070-60173(1)           : OPEN LINE FROM BUS 60070 [HMORAV5     110.00] TO BUS 60173 [HVRBOV5     110.00] CKT 1
+ SINGLE 60071-60072(1)           : OPEN LINE FROM BUS 60071 [HMRACL2     220.00] TO BUS 60072 [HMRACL5     110.00] CKT 1
+ SINGLE 60071-60072(3)           : OPEN LINE FROM BUS 60071 [HMRACL2     220.00] TO BUS 60072 [HMRACL5     110.00] CKT 3
+ SINGLE 60071-60151(1)           : OPEN LINE FROM BUS 60071 [HMRACL2     220.00] TO BUS 60151 [HZERJA2     220.00] CKT 1
+ SINGLE 60071-60170(2)           : OPEN LINE FROM BUS 60071 [HMRACL2     220.00] TO BUS 60170 [HTESIS2     220.00] CKT 2
+ SINGLE 60072-60103(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60103 [HRESNI5     110.00] CKT 1
+ SINGLE 60072-60103(2)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60103 [HRESNI5     110.00] CKT 2
+ SINGLE 60072-60112(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60112 [HSISCI5     110.00] CKT 1
+ SINGLE 60072-60126(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 1
+ SINGLE 60072-60130(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60130 [HTUMBR5     110.00] CKT 1
+ SINGLE 60072-60130(2)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60130 [HTUMBR5     110.00] CKT 2
+ SINGLE 60072-60135(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60135 [HVGORI5     110.00] CKT 1
+ SINGLE 60072-60135(2)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60135 [HVGORI5     110.00] CKT 2
+ SINGLE 60072-60167(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 60167 [HLUDIN5     110.00] CKT 1
+ SINGLE 60072-70097(1)           : OPEN LINE FROM BUS 60072 [HMRACL5     110.00] TO BUS 70097 [HPRACN52    110.00] CKT 1
+ SINGLE 60073-60083(1)           : OPEN LINE FROM BUS 60073 [HNASIC5     110.00] TO BUS 60083 [HOSIJ15     110.00] CKT 1
+ SINGLE 60073-60113(1)           : OPEN LINE FROM BUS 60073 [HNASIC5     110.00] TO BUS 60113 [HSLATI5     110.00] CKT 1
+ SINGLE 60074-60123(1)           : OPEN LINE FROM BUS 60074 [HNEDEL5     110.00] TO BUS 60123 [HTEJER5     110.00] CKT 1
+ SINGLE 60074-60155(1)           : OPEN LINE FROM BUS 60074 [HNEDEL5     110.00] TO BUS 60155 [HVARGD5     110.00] CKT 1
+ SINGLE 60074-60182(1)           : OPEN LINE FROM BUS 60074 [HNEDEL5     110.00] TO BUS 60182 [HIVANE5     110.00] CKT 1
+ SINGLE 60076-60141(1)           : OPEN LINE FROM BUS 60076 [HNIJEM5     110.00] TO BUS 60141 [HVUKOV5     110.00] CKT 1
+ SINGLE 60077-60079(1)           : OPEN LINE FROM BUS 60077 [HNIN  5     110.00] TO BUS 60079 [HOBROV5     110.00] CKT 1
+ SINGLE 60077-60144(1)           : OPEN LINE FROM BUS 60077 [HNIN  5     110.00] TO BUS 60144 [HZADCE5     110.00] CKT 1
+ SINGLE 60078-60088(1)           : OPEN LINE FROM BUS 60078 [HNOVAL5     110.00] TO BUS 60088 [HPAG  5     110.00] CKT 1
+ SINGLE 60078-60100(1)           : OPEN LINE FROM BUS 60078 [HNOVAL5     110.00] TO BUS 60100 [HRAB  5     110.00] CKT 1
+ SINGLE 60079-60133(1)           : OPEN LINE FROM BUS 60079 [HOBROV5     110.00] TO BUS 60133 [HVELEB5     110.00] CKT 1
+ SINGLE 60079-60143(1)           : OPEN LINE FROM BUS 60079 [HOBROV5     110.00] TO BUS 60143 [HZADAR5     110.00] CKT 1
+ SINGLE 60079-60184(1)           : OPEN LINE FROM BUS 60079 [HOBROV5     110.00] TO BUS 60184 [HVEBRU5     110.00] CKT 1
+ SINGLE 60079-60186(1)           : OPEN LINE FROM BUS 60079 [HOBROV5     110.00] TO BUS 60186 [HVEZEL5     110.00] CKT 1
+ SINGLE 60081-60201(1)           : OPEN LINE FROM BUS 60081 [HOPUZE5     110.00] TO BUS 60201 [HPLOCE5     110.00] CKT 1
+ SINGLE 60083-60084(1)           : OPEN LINE FROM BUS 60083 [HOSIJ15     110.00] TO BUS 60084 [HOSIJ35     110.00] CKT 1
+ SINGLE 60084-60085(1)           : OPEN LINE FROM BUS 60084 [HOSIJ35     110.00] TO BUS 60085 [HOSIJ45     110.00] CKT 1
+ SINGLE 60087-60157(1)           : OPEN LINE FROM BUS 60087 [HOTOCA5     110.00] TO BUS 60157 [HSENJ 5     110.00] CKT 1
+ SINGLE 60089-60095(1)           : OPEN LINE FROM BUS 60089 [HPAZIN5     110.00] TO BUS 60095 [HPOREC5     110.00] CKT 1
+ SINGLE 60089-60192(1)           : OPEN LINE FROM BUS 60089 [HPAZIN5     110.00] TO BUS 60192 [HTUPLJ5     110.00] CKT 1
+ SINGLE 60090-60091(1)           : OPEN LINE FROM BUS 60090 [HPEHLI2     220.00] TO BUS 60091 [HPEHLI5     110.00] CKT 1
+ SINGLE 60090-60091(2)           : OPEN LINE FROM BUS 60090 [HPEHLI2     220.00] TO BUS 60091 [HPEHLI5     110.00] CKT 2
+ SINGLE 60090-60158(1)           : OPEN LINE FROM BUS 60090 [HPEHLI2     220.00] TO BUS 60158 [HTEPLO2     220.00] CKT 1
+ SINGLE 60091-60121(1)           : OPEN LINE FROM BUS 60091 [HPEHLI5     110.00] TO BUS 60121 [HSUSAK5     110.00] CKT 1
+ SINGLE 60091-60154(1)           : OPEN LINE FROM BUS 60091 [HPEHLI5     110.00] TO BUS 60154 [HRIJEK5     110.00] CKT 1
+ SINGLE 60091-60190(1)           : OPEN LINE FROM BUS 60091 [HPEHLI5     110.00] TO BUS 60190 [HTURNI5     110.00] CKT 1
+ SINGLE 60091-60190(2)           : OPEN LINE FROM BUS 60091 [HPEHLI5     110.00] TO BUS 60190 [HTURNI5     110.00] CKT 2
+ SINGLE 60091-60190(3)           : OPEN LINE FROM BUS 60091 [HPEHLI5     110.00] TO BUS 60190 [HTURNI5     110.00] CKT 3
+ SINGLE 60092-70097(1)           : OPEN LINE FROM BUS 60092 [HPETRI5     110.00] TO BUS 70097 [HPRACN52    110.00] CKT 1
+ SINGLE 60093-60102(1)           : OPEN LINE FROM BUS 60093 [HPODSU5     110.00] TO BUS 60102 [HRAKIT5     110.00] CKT 1
+ SINGLE 60093-60102(2)           : OPEN LINE FROM BUS 60093 [HPODSU5     110.00] TO BUS 60102 [HRAKIT5     110.00] CKT 2
+ SINGLE 60093-60142(1)           : OPEN LINE FROM BUS 60093 [HPODSU5     110.00] TO BUS 60142 [HZABOK5     110.00] CKT 1
+ SINGLE 60094-60148(1)           : OPEN LINE FROM BUS 60094 [HPOKUP5     110.00] TO BUS 60148 [HZDENC5     110.00] CKT 1
+ SINGLE 60095-60193(1)           : OPEN LINE FROM BUS 60095 [HPOREC5     110.00] TO BUS 60193 [HFUNTA5     110.00] CKT 1
+ SINGLE 60096-60114(1)           : OPEN LINE FROM BUS 60096 [HPOZEG5     110.00] TO BUS 60114 [HSLBR15     110.00] CKT 1
+ SINGLE 60097-60112(1)           : OPEN LINE FROM BUS 60097 [HPRACN51    110.00] TO BUS 60112 [HSISCI5     110.00] CKT 1
+ SINGLE 60097-60149(1)           : OPEN LINE FROM BUS 60097 [HPRACN51    110.00] TO BUS 60149 [HZELJE5     110.00] CKT 1
+ SINGLE 60101-60125(1)           : OPEN LINE FROM BUS 60101 [HRAFSI51    110.00] TO BUS 60125 [HTESIS5     110.00] CKT 1
+ SINGLE 60102-60107(1)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60107 [HSAMOB5     110.00] CKT 1
+ SINGLE 60102-60107(2)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60107 [HSAMOB5     110.00] CKT 2
+ SINGLE 60102-60117(1)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60117 [HSTENJ5     110.00] CKT 1
+ SINGLE 60102-60117(2)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60117 [HSTENJ5     110.00] CKT 2
+ SINGLE 60102-60122(1)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60122 [HSVARC5     110.00] CKT 1
+ SINGLE 60102-60130(1)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60130 [HTUMBR5     110.00] CKT 1
+ SINGLE 60102-60130(2)           : OPEN LINE FROM BUS 60102 [HRAKIT5     110.00] TO BUS 60130 [HTUMBR5     110.00] CKT 2
+ SINGLE 60103-60126(1)           : OPEN LINE FROM BUS 60103 [HRESNI5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 1
+ SINGLE 60103-60126(2)           : OPEN LINE FROM BUS 60103 [HRESNI5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 2
+ SINGLE 60103-60213(1)           : OPEN LINE FROM BUS 60103 [HRESNI5     110.00] TO BUS 60213 [HSESVE5     110.00] CKT 1
+ SINGLE 60104-60156(1)           : OPEN LINE FROM BUS 60104 [HRHEBB5     110.00] TO BUS 60156 [HPERUC5     110.00] CKT 1
+ SINGLE 60104-60202(1)           : OPEN LINE FROM BUS 60104 [HRHEBB5     110.00] TO BUS 60202 [HVOSTA5     110.00] CKT 1
+ SINGLE 60106-60136(1)           : OPEN LINE FROM BUS 60106 [HROVIN5     110.00] TO BUS 60136 [HVINCE5     110.00] CKT 1
+ SINGLE 60106-60193(1)           : OPEN LINE FROM BUS 60106 [HROVIN5     110.00] TO BUS 60193 [HFUNTA5     110.00] CKT 1
+ SINGLE 60107-60147(1)           : OPEN LINE FROM BUS 60107 [HSAMOB5     110.00] TO BUS 60147 [HZAPRE5     110.00] CKT 1
+ SINGLE 60108-60126(1)           : OPEN LINE FROM BUS 60108 [HSAVIC5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 1
+ SINGLE 60109-60157(1)           : OPEN LINE FROM BUS 60109 [HSENJ 2     220.00] TO BUS 60157 [HSENJ 5     110.00] CKT 1
+ SINGLE 60110-60128(1)           : OPEN LINE FROM BUS 60110 [HSIJAN5     110.00] TO BUS 60128 [HTSPO15     110.00] CKT 1
+ SINGLE 60110-70124(1)           : OPEN LINE FROM BUS 60110 [HSIJAN5     110.00] TO BUS 70124 [HTEPLO52    110.00] CKT 1
+ SINGLE 60111-60156(1)           : OPEN LINE FROM BUS 60111 [HSINJ 5     110.00] TO BUS 60156 [HPERUC5     110.00] CKT 1
+ SINGLE 60111-60205(1)           : OPEN LINE FROM BUS 60111 [HSINJ 5     110.00] TO BUS 60205 [HDUGPO5     110.00] CKT 1
+ SINGLE 60113-60139(1)           : OPEN LINE FROM BUS 60113 [HSLATI5     110.00] TO BUS 60139 [HVIROV5     110.00] CKT 1
+ SINGLE 60114-60115(1)           : OPEN LINE FROM BUS 60114 [HSLBR15     110.00] TO BUS 60115 [HSLBR25     110.00] CKT 1
+ SINGLE 60116-60126(1)           : OPEN LINE FROM BUS 60116 [HSOPOT5     110.00] TO BUS 60126 [HTETOZ5     110.00] CKT 1
+ SINGLE 60118-60195(1)           : OPEN LINE FROM BUS 60118 [HSTON 5     110.00] TO BUS 60195 [HPONIK5     110.00] CKT 1
+ SINGLE 60118-60196(1)           : OPEN LINE FROM BUS 60118 [HSTON 5     110.00] TO BUS 60196 [HRUDIN5     110.00] CKT 1
+ SINGLE 60119-60182(1)           : OPEN LINE FROM BUS 60119 [HSTRAZ5     110.00] TO BUS 60182 [HIVANE5     110.00] CKT 1
+ SINGLE 60120-60140(1)           : OPEN LINE FROM BUS 60120 [HSUCID5     110.00] TO BUS 60140 [HVRBOR5     110.00] CKT 1
+ SINGLE 60120-60140(2)           : OPEN LINE FROM BUS 60120 [HSUCID5     110.00] TO BUS 60140 [HVRBOR5     110.00] CKT 2
+ SINGLE 60122-60173(1)           : OPEN LINE FROM BUS 60122 [HSVARC5     110.00] TO BUS 60173 [HVRBOV5     110.00] CKT 1
+ SINGLE 60123-60142(1)           : OPEN LINE FROM BUS 60123 [HTEJER5     110.00] TO BUS 60142 [HZABOK5     110.00] CKT 1
+ SINGLE 60123-60152(1)           : OPEN LINE FROM BUS 60123 [HTEJER5     110.00] TO BUS 60152 [HZERJA5     110.00] CKT 1
+ SINGLE 60124-60128(1)           : OPEN LINE FROM BUS 60124 [HTEPLO51    110.00] TO BUS 60128 [HTSPO15     110.00] CKT 1
+ SINGLE 60124-60158(1)           : OPEN LINE FROM BUS 60124 [HTEPLO51    110.00] TO BUS 60158 [HTEPLO2     220.00] CKT 1
+ SINGLE 60124-60158(2)           : OPEN LINE FROM BUS 60124 [HTEPLO51    110.00] TO BUS 60158 [HTEPLO2     220.00] CKT 2
+ SINGLE 60124-60161(1)           : OPEN LINE FROM BUS 60124 [HTEPLO51    110.00] TO BUS 60161 [HRASHA5     110.00] CKT 1
+ SINGLE 60124-60161(2)           : OPEN LINE FROM BUS 60124 [HTEPLO51    110.00] TO BUS 60161 [HRASHA5     110.00] CKT 2
+ SINGLE 60124-60192(1)           : OPEN LINE FROM BUS 60124 [HTEPLO51    110.00] TO BUS 60192 [HTUPLJ5     110.00] CKT 1
+ SINGLE 60125-60149(1)           : OPEN LINE FROM BUS 60125 [HTESIS5     110.00] TO BUS 60149 [HZELJE5     110.00] CKT 1
+ SINGLE 60125-60170(1)           : OPEN LINE FROM BUS 60125 [HTESIS5     110.00] TO BUS 60170 [HTESIS2     220.00] CKT 1
+ SINGLE 60126-60189(1)           : OPEN LINE FROM BUS 60126 [HTETOZ5     110.00] TO BUS 60189 [HFEREN5     110.00] CKT 1
+ SINGLE 60127-60204(1)           : OPEN LINE FROM BUS 60127 [HTROGI5     110.00] TO BUS 60204 [HJELIN5     110.00] CKT 1
+ SINGLE 60128-60136(1)           : OPEN LINE FROM BUS 60128 [HTSPO15     110.00] TO BUS 60136 [HVINCE5     110.00] CKT 1
+ SINGLE 60129-60130(1)           : OPEN LINE FROM BUS 60129 [HTUMBR1     400.00] TO BUS 60130 [HTUMBR5     110.00] CKT 1
+ SINGLE 60129-60130(2)           : OPEN LINE FROM BUS 60129 [HTUMBR1     400.00] TO BUS 60130 [HTUMBR5     110.00] CKT 2
+ SINGLE 60129-60150(1)           : OPEN LINE FROM BUS 60129 [HTUMBR1     400.00] TO BUS 60150 [HZERJA1     400.00] CKT 1
+ SINGLE 60130-60147(1)           : OPEN LINE FROM BUS 60130 [HTUMBR5     110.00] TO BUS 60147 [HZAPRE5     110.00] CKT 1
+ SINGLE 60130-60148(1)           : OPEN LINE FROM BUS 60130 [HTUMBR5     110.00] TO BUS 60148 [HZDENC5     110.00] CKT 1
+ SINGLE 60130-60172(1)           : OPEN LINE FROM BUS 60130 [HTUMBR5     110.00] TO BUS 60172 [HTUMBR71    30.000] CKT 1
+ SINGLE 60130-70172(1)           : OPEN LINE FROM BUS 60130 [HTUMBR5     110.00] TO BUS 70172 [HTUMBR72    30.000] CKT 1
+ SINGLE 60132-60133(1)           : OPEN LINE FROM BUS 60132 [HVELEB1     400.00] TO BUS 60133 [HVELEB5     110.00] CKT 1
+ SINGLE 60134-60157(1)           : OPEN LINE FROM BUS 60134 [HVEVRA5     110.00] TO BUS 60157 [HSENJ 5     110.00] CKT 1
+ SINGLE 60137-60141(1)           : OPEN LINE FROM BUS 60137 [HVINKO5     110.00] TO BUS 60141 [HVUKOV5     110.00] CKT 1
+ SINGLE 60137-60153(1)           : OPEN LINE FROM BUS 60137 [HVINKO5     110.00] TO BUS 60153 [HZUPAN5     110.00] CKT 1
+ SINGLE 60137-60166(1)           : OPEN LINE FROM BUS 60137 [HVINKO5     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60140-60146(1)           : OPEN LINE FROM BUS 60140 [HVRBOR5     110.00] TO BUS 60146 [HZAKUC5     110.00] CKT 1
+ SINGLE 60140-60168(1)           : OPEN LINE FROM BUS 60140 [HVRBOR5     110.00] TO BUS 60168 [HMETER5     110.00] CKT 1
+ SINGLE 60140-60174(1)           : OPEN LINE FROM BUS 60140 [HVRBOR5     110.00] TO BUS 60174 [HSPLIT51    110.00] CKT 1
+ SINGLE 60140-70174(1)           : OPEN LINE FROM BUS 60140 [HVRBOR5     110.00] TO BUS 70174 [HSPLIT52    110.00] CKT 1
+ SINGLE 60143-60144(1)           : OPEN LINE FROM BUS 60143 [HZADAR5     110.00] TO BUS 60144 [HZADCE5     110.00] CKT 1
+ SINGLE 60145-60146(1)           : OPEN LINE FROM BUS 60145 [HZAKUC2     220.00] TO BUS 60146 [HZAKUC5     110.00] CKT 1
+ SINGLE 60146-60168(2)           : OPEN LINE FROM BUS 60146 [HZAKUC5     110.00] TO BUS 60168 [HMETER5     110.00] CKT 2
+ SINGLE 60150-60151(1)           : OPEN LINE FROM BUS 60150 [HZERJA1     400.00] TO BUS 60151 [HZERJA2     220.00] CKT 1
+ SINGLE 60150-60152(1)           : OPEN LINE FROM BUS 60150 [HZERJA1     400.00] TO BUS 60152 [HZERJA5     110.00] CKT 1
+ SINGLE 60150-60152(2)           : OPEN LINE FROM BUS 60150 [HZERJA1     400.00] TO BUS 60152 [HZERJA5     110.00] CKT 2
+ SINGLE 60152-60213(1)           : OPEN LINE FROM BUS 60152 [HZERJA5     110.00] TO BUS 60213 [HSESVE5     110.00] CKT 1
+ SINGLE 60153-60166(1)           : OPEN LINE FROM BUS 60153 [HZUPAN5     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60155-60212(1)           : OPEN LINE FROM BUS 60155 [HVARGD5     110.00] TO BUS 60212 [HKNEGI5     110.00] CKT 1
+ SINGLE 60158-70124(1)           : OPEN LINE FROM BUS 60158 [HTEPLO2     220.00] TO BUS 70124 [HTEPLO52    110.00] CKT 1
+ SINGLE 60160-60166(1)           : OPEN LINE FROM BUS 60160 [HDAKO35     110.00] TO BUS 60166 [HDAKOV5     110.00] CKT 1
+ SINGLE 60161-60164(1)           : OPEN LINE FROM BUS 60161 [HRASHA5     110.00] TO BUS 60164 [HKOROM5     110.00] CKT 1
+ SINGLE 60168-60205(1)           : OPEN LINE FROM BUS 60168 [HMETER5     110.00] TO BUS 60205 [HDUGPO5     110.00] CKT 1
+ SINGLE 60169-60189(1)           : OPEN LINE FROM BUS 60169 [HTRPIM5     110.00] TO BUS 60189 [HFEREN5     110.00] CKT 1
+ SINGLE 60173-60188(1)           : OPEN LINE FROM BUS 60173 [HVRBOV5     110.00] TO BUS 60188 [HVRATA5     110.00] CKT 1
+ SINGLE 60178-60195(1)           : OPEN LINE FROM BUS 60178 [HBLATO5     110.00] TO BUS 60195 [HPONIK5     110.00] CKT 1
+ SINGLE 60178-60207(1)           : OPEN LINE FROM BUS 60178 [HBLATO5     110.00] TO BUS 60207 [HSTARI5     110.00] CKT 1
+ SINGLE 60183-60209(1)           : OPEN LINE FROM BUS 60183 [HZAGVO5     110.00] TO BUS 60209 [HVEKAT5     110.00] CKT 1
+ SINGLE 60194-60208(1)           : OPEN LINE FROM BUS 60194 [HVEGLA5     110.00] TO BUS 60208 [HVEGLU5     110.00] CKT 1
+ SINGLE 60197-60198(1)           : OPEN LINE FROM BUS 60197 [HSRD  5     110.00] TO BUS 60198 [HPLAT 5     110.00] CKT 1
+ SINGLE 60198-60199(1)           : OPEN LINE FROM BUS 60198 [HPLAT 5     110.00] TO BUS 60199 [HPLAT 2     220.00] CKT 1
+ SINGLE 60198-60199(2)           : OPEN LINE FROM BUS 60198 [HPLAT 5     110.00] TO BUS 60199 [HPLAT 2     220.00] CKT 2
+ SINGLE 60200-60201(1)           : OPEN LINE FROM BUS 60200 [HVRGOR5     110.00] TO BUS 60201 [HPLOCE5     110.00] CKT 1
+ SINGLE 60202-60210(1)           : OPEN LINE FROM BUS 60202 [HVOSTA5     110.00] TO BUS 60210 [HVELUK5     110.00] CKT 1
+ SINGLE 60204-60208(1)           : OPEN LINE FROM BUS 60204 [HJELIN5     110.00] TO BUS 60208 [HVEGLU5     110.00] CKT 1
+ SINGLE 60206-60207(1)           : OPEN LINE FROM BUS 60206 [HNEREZ5     110.00] TO BUS 60207 [HSTARI5     110.00] CKT 1
+
+ AC Contingency analysis results "rezultat.acc" are ready for graphical display
+
+ Output completed
