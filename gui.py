@@ -19,6 +19,7 @@ import tkFont
 # from PIL import ImageTk, Image
 
 
+# <editor-fold desc="###  Class Definition  ###">
 class Bus:
     def __init__(self):
         self.out_file = None
@@ -30,10 +31,34 @@ class Bus:
         self.channel_count = None
 
 
+class Branch:
+    def __init__(self):
+        self.out_file = None
+        self.from_bus_number = None
+        self.to_bus_number = None
+        self.circuit_id = None
+        self.mva_ch = None
+        self.pq_ch = None
+        self.p_ch = None
+        self.time = None
+        self.channel_count = None
+
+
+class Machine:
+    def __init__(self):
+        self.out_file = None
+        self.bus_number = None
+        self.machine_id = None
+        self.angle_ch = None
+        self.pelec_ch = None
+        self.time = None
+        self.channel_count = None
+
+
 class LineFault:
     def __init__(self):
-        self.bus1_number = None
-        self.bus2_number = None
+        self.from_bus_number = None
+        self.to_bus_number = None
         self.circuit_id = None
         self.time = None
 
@@ -42,6 +67,7 @@ class BusFault:
     def __init__(self):
         self.bus_number = None
         self.time = None
+# </editor-fold>
 
 
 def set_window_size(window, app_width, app_height):
@@ -63,9 +89,9 @@ def set_button_size(buttons, btn_width, btn_height, font_size):
 def set_root_window():
     root.title(__app_name__)
     set_window_size(root, 1280, 720)
-    button_dynamics = Tk.Button(root, text="Dynamic analysis", command=set_dynamic_analysis_window)
+    button_dynamics = Tk.Button(root, text="Dynamic Analysis", command=set_dynamic_analysis_window)
     button_dynamics.grid(row=0, column=0)
-    button_semaphore = Tk.Button(root, text="Semaphore", command=set_semaphore_window)
+    button_semaphore = Tk.Button(root, text="Traffic Light", command=set_traffic_light_window)
     button_semaphore.grid(row=1, column=0)
     set_button_size([button_dynamics, button_semaphore], 15, 2, 14)
 
@@ -80,9 +106,9 @@ def set_dynamic_analysis_window():
     set_window_size(dynamics_window, 1280, 720)
     button_bus = Tk.Button(dynamics_window, text="Bus", command=set_bus_window)
     button_bus.grid(row=0, column=0)
-    button_branch = Tk.Button(dynamics_window, text="Branch", command=set_bus_window)
+    button_branch = Tk.Button(dynamics_window, text="Branch", command=set_branch_window)
     button_branch.grid(row=1, column=0)
-    button_machine = Tk.Button(dynamics_window, text="Machine", command=set_bus_window)
+    button_machine = Tk.Button(dynamics_window, text="Machine", command=set_machine_window)
     button_machine.grid(row=2, column=0)
     button_back = Tk.Button(dynamics_window, text="Back", command=return_to_root)
     button_back.grid(row=3, column=0)
@@ -90,7 +116,7 @@ def set_dynamic_analysis_window():
     dynamics_window.protocol("WM_DELETE_WINDOW", on_closing)
 
 
-def set_semaphore_window():
+def set_traffic_light_window():
     pass
 
 
@@ -108,20 +134,23 @@ def set_bus_window():
 
         # Check user entries
         bus.out_file = psse.check_out_file(bus.out_file)
-        if not check_bus_number(bus.bus_number):
-            show_popup_window(bus_window, "Error", "Bus number doesn't exist!")
+        bus.bus_number = check_bus_entry(bus.bus_number)
+        if bus.bus_number == -1:
+            show_popup_window(bus_window, "Error", "Bus number or name doesn't exist!")
             return
-        bus.bus_number = int(bus.bus_number)
-        if (freq_var.get() + vol_var.get() + vol_ang_var.get()) == 0:
+        if (bus.freq_ch + bus.vol_ch + bus.vol_ang_ch) == 0:
             show_popup_window(bus_window, "Error", "Check at least one output channel!")
             return
 
         # Add output channels
-        bus.channel_count = psse.add_bus_channels(bus.out_file, int(bus_number_entry.get()),
-                                                  freq_var.get(), vol_var.get(), vol_ang_var.get())
+        bus.channel_count = psse.add_bus_channels(bus.out_file, bus.bus_number,
+                                                  bus.freq_ch, bus.vol_ch, bus.vol_ang_ch)
 
-        # Enable run button
+        # Enable run button and disable disturbance and plot buttons
         run_button["state"] = "normal"
+        line_fault_button["state"] = "disabled"
+        bus_fault_button["state"] = "disabled"
+        plot_button["state"] = "disabled"
         return
 
     def run():
@@ -140,19 +169,21 @@ def set_bus_window():
 
     def line_fault():
         # Copy user entries into class object
-        lf.bus1_number = lf_bus1_number_entry.get()
-        lf.bus2_number = lf_bus2_number_entry.get()
+        lf.from_bus_number = lf_from_bus_number_entry.get()
+        lf.to_bus_number = lf_to_bus_number_entry.get()
         lf.circuit_id = lf_circuit_id_entry.get()
         lf.time = lf_time_entry.get()
 
         # Check user entries
-        if lf.bus1_number.isdigit() and lf.bus2_number.isdigit():
-            lf.bus1_number = int(lf.bus1_number)
-            lf.bus2_number = int(lf.bus2_number)
-        else:
-            show_popup_window(bus_window, "Error", "Bus number entry should be integer!")
+        lf.from_bus_number = check_bus_entry(lf.from_bus_number)
+        if lf.from_bus_number == -1:
+            show_popup_window(bus_window, "Error", "From bus number or name doesn't exist!")
             return
-        if not psse.check_if_branch_exist(lf.bus1_number, lf.bus2_number, lf.circuit_id):
+        lf.to_bus_number = check_bus_entry(lf.to_bus_number)
+        if lf.to_bus_number == -1:
+            show_popup_window(bus_window, "Error", "To bus number or name doesn't exist!")
+            return
+        if not psse.check_if_branch_exist(lf.from_bus_number, lf.to_bus_number, lf.circuit_id):
             show_popup_window(bus_window, "Error", "Branch doesn't exist!")
             return
         try:
@@ -164,10 +195,32 @@ def set_bus_window():
             show_popup_window(bus_window, "Error", "End time of fault must be between <%.2f, %.2f]"
                               % (bus.time, bus.time + 0.3))
             return
-        psse.disturbance(lf.bus1_number, lf.bus2_number, lf.circuit_id, lf.time)
+
+        # Call method line_fault from psse.py
+        psse.line_fault(lf.from_bus_number, lf.to_bus_number, lf.circuit_id, lf.time)
 
     def bus_fault():
-        pass
+        # Copy user entries into class object
+        bf.bus_number = bf_bus_number_entry.get()
+        bf.time = bf_time_entry.get()
+
+        # Check user entries
+        bf.bus_number = check_bus_entry(bf.bus_number)
+        if bf.bus_number == -1:
+            show_popup_window(bus_window, "Error", "Bus number or name doesn't exist!")
+            return
+        try:
+            bf.time = float(bf.time)
+        except ValueError:
+            show_popup_window(bus_window, "Error", "Time must be float value!")
+            return
+        if bf.time <= bus.time or bf.time > bus.time + 0.3:
+            show_popup_window(bus_window, "Error", "End time of fault must be between <%.2f, %.2f]"
+                              % (bus.time, bus.time + 0.3))
+            return
+
+        # Call method bus_fault from psse.py
+        psse.bus_fault(bf.bus_number, bf.time)
 
     # Create Bus window
     bus_window = Tk.Toplevel(root)
@@ -178,6 +231,7 @@ def set_bus_window():
     # Create class objects
     bus = Bus()
     lf = LineFault()
+    bf = BusFault()
 
     # Create frame Initialize
     initialize_frame = Tk.LabelFrame(bus_window, text="Initialize")
@@ -206,20 +260,20 @@ def set_bus_window():
     run_button = Tk.Button(run_frame, text="Run", state="disabled", command=run)
     run_button.grid(row=1, column=0, columnspan=2)
 
-    # Create frame add Disturbance
+    # Create frame Add Disturbance
     disturbance_frame = Tk.LabelFrame(bus_window, text="Add disturbance")
     disturbance_frame.grid(row=0, column=1, rowspan=2, padx=(50, 0), sticky=Tk.N)
     # Create frame Line Fault
     line_fault_frame = Tk.LabelFrame(disturbance_frame, text="Line fault")
     line_fault_frame.grid(row=0, column=0, pady=(10, 0))
-    Tk.Label(line_fault_frame, text="Bus number 1: ").grid(row=0, column=0)
-    Tk.Label(line_fault_frame, text="Bus number 2: ").grid(row=1, column=0)
+    Tk.Label(line_fault_frame, text="From bus number: ").grid(row=0, column=0)
+    Tk.Label(line_fault_frame, text="To bus number: ").grid(row=1, column=0)
     Tk.Label(line_fault_frame, text="Circuit ID: ").grid(row=2, column=0)
     Tk.Label(line_fault_frame, text="End time of fault: ").grid(row=3, column=0)
-    lf_bus1_number_entry = Tk.Entry(line_fault_frame)
-    lf_bus1_number_entry.grid(row=0, column=1)
-    lf_bus2_number_entry = Tk.Entry(line_fault_frame)
-    lf_bus2_number_entry.grid(row=1, column=1)
+    lf_from_bus_number_entry = Tk.Entry(line_fault_frame)
+    lf_from_bus_number_entry.grid(row=0, column=1)
+    lf_to_bus_number_entry = Tk.Entry(line_fault_frame)
+    lf_to_bus_number_entry.grid(row=1, column=1)
     lf_circuit_id_entry = Tk.Entry(line_fault_frame)
     lf_circuit_id_entry.grid(row=2, column=1)
     lf_time_entry = Tk.Entry(line_fault_frame)
@@ -244,10 +298,393 @@ def set_bus_window():
     plot_button.grid(row=2, column=0, columnspan=2, pady=(20, 0))
 
 
+def set_branch_window():
+    def initialize():
+        # Start PSSe
+        psse.start_psse()
+
+        # Copy user entries into class object
+        br.out_file = out_file_entry.get()
+        br.from_bus_number = from_bus_number_entry.get()
+        br.to_bus_number = to_bus_number_entry.get()
+        br.circuit_id = circuit_id_entry.get()
+        br.mva_ch = mva_var.get()
+        br.pq_ch = pq_var.get()
+        br.p_ch = p_var.get()
+
+        # Check user entries
+        br.out_file = psse.check_out_file(br.out_file)
+        br.from_bus_number = check_bus_entry(br.from_bus_number)
+        if br.from_bus_number == -1:
+            show_popup_window(branch_window, "Error", "From bus number or name doesn't exist!")
+            return
+        br.to_bus_number = check_bus_entry(br.to_bus_number)
+        if br.to_bus_number == -1:
+            show_popup_window(branch_window, "Error", "To bus number or name doesn't exist!")
+            return
+        if not psse.check_if_branch_exist(br.from_bus_number, br.to_bus_number, br.circuit_id):
+            show_popup_window(branch_window, "Error", "Branch doesn't exist!")
+            return
+        if (br.mva_ch + br.pq_ch + br.p_ch) == 0:
+            show_popup_window(branch_window, "Error", "Check at least one output channel!")
+            return
+
+        # Add output channels
+        br.channel_count = psse.add_branch_channels(br.out_file, br.from_bus_number, br.to_bus_number, br.circuit_id,
+                                                    br.mva_ch, br.pq_ch, br.p_ch)
+
+        # Enable run button and disable disturbance and plot buttons
+        run_button["state"] = "normal"
+        line_fault_button["state"] = "disabled"
+        bus_fault_button["state"] = "disabled"
+        plot_button["state"] = "disabled"
+        return
+
+    def run():
+        # Run dynamics
+        br.time = run_entry.get()
+        try:
+            br.time = float(br.time)
+        except ValueError:
+            show_popup_window(branch_window, "Error", "Time of pause must be float value!")
+        else:
+            # Enable disturbance buttons and plot button
+            line_fault_button["state"] = "normal"
+            bus_fault_button["state"] = "normal"
+            plot_button["state"] = "normal"
+            psse.run(br.time)
+
+    def line_fault():
+        # Copy user entries into class object
+        lf.from_bus_number = lf_from_bus_number_entry.get()
+        lf.to_bus_number = lf_to_bus_number_entry.get()
+        lf.circuit_id = lf_circuit_id_entry.get()
+        lf.time = lf_time_entry.get()
+
+        # Check user entries
+        lf.from_bus_number = check_bus_entry(lf.from_bus_number)
+        if lf.from_bus_number == -1:
+            show_popup_window(branch_window, "Error", "From bus number or name doesn't exist!")
+            return
+        lf.to_bus_number = check_bus_entry(lf.to_bus_number)
+        if lf.to_bus_number == -1:
+            show_popup_window(branch_window, "Error", "To bus number or name doesn't exist!")
+            return
+        if not psse.check_if_branch_exist(lf.from_bus_number, lf.to_bus_number, lf.circuit_id):
+            show_popup_window(branch_window, "Error", "Branch doesn't exist!")
+            return
+        try:
+            lf.time = float(lf.time)
+        except ValueError:
+            show_popup_window(branch_window, "Error", "Time must be float value!")
+            return
+        if lf.time <= br.time or lf.time > br.time + 0.3:
+            show_popup_window(branch_window, "Error", "End time of fault must be between <%.2f, %.2f]"
+                              % (br.time, br.time + 0.3))
+            return
+
+        # Call method line_fault from psse.py
+        psse.line_fault(lf.from_bus_number, lf.to_bus_number, lf.circuit_id, lf.time)
+
+    def bus_fault():
+        # Copy user entries into class object
+        bf.bus_number = bf_bus_number_entry.get()
+        bf.time = bf_time_entry.get()
+
+        # Check user entries
+        bf.bus_number = check_bus_entry(bf.bus_number)
+        if bf.bus_number == -1:
+            show_popup_window(branch_window, "Error", "Bus number or name doesn't exist!")
+            return
+        try:
+            bf.time = float(bf.time)
+        except ValueError:
+            show_popup_window(branch_window, "Error", "Time must be float value!")
+            return
+        if bf.time <= br.time or bf.time > br.time + 0.3:
+            show_popup_window(branch_window, "Error", "End time of fault must be between <%.2f, %.2f]"
+                              % (br.time, br.time + 0.3))
+            return
+
+        # Call method bus_fault from psse.py
+        psse.bus_fault(bf.bus_number, bf.time)
+
+    # Create branch window
+    branch_window = Tk.Toplevel(root)
+    branch_window.grab_set()
+    branch_window.title("Branch")
+    set_window_size(branch_window, 960, 540)
+
+    # Create class objects
+    br = Branch()
+    lf = LineFault()
+    bf = BusFault()
+
+    # Create frame Initialize
+    initialize_frame = Tk.LabelFrame(branch_window, text="Initialize")
+    initialize_frame.grid(row=0, column=0, sticky=Tk.N)
+    Tk.Label(initialize_frame, text="Output file name: ").grid(row=0, column=0)
+    Tk.Label(initialize_frame, text="From bus number: ").grid(row=1, column=0)
+    Tk.Label(initialize_frame, text="To bus number: ").grid(row=2, column=0)
+    Tk.Label(initialize_frame, text="Circuit ID: ").grid(row=3, column=0)
+    Tk.Label(initialize_frame, text="Add channels: ").grid(row=4, column=0)
+    out_file_entry = Tk.Entry(initialize_frame)
+    out_file_entry.grid(row=0, column=1)
+    from_bus_number_entry = Tk.Entry(initialize_frame)
+    from_bus_number_entry.grid(row=1, column=1)
+    to_bus_number_entry = Tk.Entry(initialize_frame)
+    to_bus_number_entry.grid(row=2, column=1)
+    circuit_id_entry = Tk.Entry(initialize_frame)
+    circuit_id_entry.grid(row=3, column=1)
+    mva_var = Tk.IntVar()
+    pq_var = Tk.IntVar()
+    p_var = Tk.IntVar()
+    Tk.Checkbutton(initialize_frame, text="MVA", variable=mva_var).grid(row=4, column=1, sticky=Tk.W)
+    Tk.Checkbutton(initialize_frame, text="P and Q", variable=pq_var).grid(row=5, column=1, sticky=Tk.W)
+    Tk.Checkbutton(initialize_frame, text="P", variable=p_var).grid(row=6, column=1, sticky=Tk.W)
+    Tk.Button(initialize_frame, text="Initialize", command=initialize).grid(row=7, column=0, columnspan=2)
+
+    # Create frame Run
+    run_frame = Tk.LabelFrame(branch_window, text="Run dynamics")
+    run_frame.grid(row=1, column=0, sticky=Tk.N, pady=(20, 0))
+    Tk.Label(run_frame, text="Time of pause: ").grid(row=0, column=0)
+    run_entry = Tk.Entry(run_frame)
+    run_entry.grid(row=0, column=1)
+    run_button = Tk.Button(run_frame, text="Run", state="disabled", command=run)
+    run_button.grid(row=1, column=0, columnspan=2)
+
+    # Create frame add Disturbance
+    disturbance_frame = Tk.LabelFrame(branch_window, text="Add disturbance")
+    disturbance_frame.grid(row=0, column=1, rowspan=2, padx=(50, 0), sticky=Tk.N)
+    # Create frame Line Fault
+    line_fault_frame = Tk.LabelFrame(disturbance_frame, text="Line fault")
+    line_fault_frame.grid(row=0, column=0, pady=(10, 0))
+    Tk.Label(line_fault_frame, text="From bus number: ").grid(row=0, column=0)
+    Tk.Label(line_fault_frame, text="To bus number: ").grid(row=1, column=0)
+    Tk.Label(line_fault_frame, text="Circuit ID: ").grid(row=2, column=0)
+    Tk.Label(line_fault_frame, text="End time of fault: ").grid(row=3, column=0)
+    lf_from_bus_number_entry = Tk.Entry(line_fault_frame)
+    lf_from_bus_number_entry.grid(row=0, column=1)
+    lf_to_bus_number_entry = Tk.Entry(line_fault_frame)
+    lf_to_bus_number_entry.grid(row=1, column=1)
+    lf_circuit_id_entry = Tk.Entry(line_fault_frame)
+    lf_circuit_id_entry.grid(row=2, column=1)
+    lf_time_entry = Tk.Entry(line_fault_frame)
+    lf_time_entry.grid(row=3, column=1)
+    line_fault_button = Tk.Button(line_fault_frame, text="Add disturbance", state="disabled", command=line_fault)
+    line_fault_button.grid(row=4, column=0, columnspan=2)
+    # Create frame Bus Fault
+    bus_fault_frame = Tk.LabelFrame(disturbance_frame, text="Bus fault")
+    bus_fault_frame.grid(row=1, column=0, pady=(30, 0))
+    Tk.Label(bus_fault_frame, text="Bus number: ").grid(row=0, column=0)
+    Tk.Label(bus_fault_frame, text="End time of fault: ").grid(row=1, column=0)
+    bf_bus_number_entry = Tk.Entry(bus_fault_frame)
+    bf_bus_number_entry.grid(row=0, column=1)
+    bf_time_entry = Tk.Entry(bus_fault_frame)
+    bf_time_entry.grid(row=1, column=1)
+    bus_fault_button = Tk.Button(bus_fault_frame, text="Add disturbance", state="disabled", command=bus_fault)
+    bus_fault_button.grid(row=2, column=0, columnspan=2)
+
+    # Plot Graph
+    plot_button = Tk.Button(branch_window, text="Plot graph", state="disabled")
+    plot_button["command"] = lambda: psse.plot_graph(br.out_file, br.channel_count)
+    plot_button.grid(row=2, column=0, columnspan=2, pady=(20, 0))
+
+
+def set_machine_window():
+    def initialize():
+        # Start PSSe
+        psse.start_psse()
+
+        # Copy user entries into class object
+        mch.out_file = out_file_entry.get()
+        mch.bus_number = bus_number_entry.get()
+        mch.machine_id = machine_id_entry.get()
+        mch.angle_ch = angle_var.get()
+        mch.pelec_ch = pelec_var.get()
+
+        # Check user entries
+        mch.out_file = psse.check_out_file(mch.out_file)
+        mch.bus_number = check_bus_entry(mch.bus_number)
+        if mch.bus_number == -1:
+            show_popup_window(machine_window, "Error", "Bus number or name doesn't exist!")
+            return
+        if not psse.check_if_machine_exist(mch.bus_number, mch.machine_id):
+            show_popup_window(machine_window, "Error", "Machine doesn't exist!")
+            return
+        if (mch.angle_ch + mch.pelec_ch) == 0:
+            show_popup_window(machine_window, "Error", "Check at least one output channel!")
+            return
+
+        # Add output channels
+        mch.channel_count = psse.add_machine_channels(mch.out_file, mch.bus_number, mch.machine_id,
+                                                      mch.angle_ch, mch.pelec_ch)
+
+        # Enable run button and disable disturbance and plot buttons
+        run_button["state"] = "normal"
+        line_fault_button["state"] = "disabled"
+        bus_fault_button["state"] = "disabled"
+        plot_button["state"] = "disabled"
+        return
+
+    def run():
+        # Run dynamics
+        mch.time = run_entry.get()
+        try:
+            mch.time = float(mch.time)
+        except ValueError:
+            show_popup_window(machine_window, "Error", "Time of pause must be float value!")
+        else:
+            # Enable disturbance buttons and plot button
+            line_fault_button["state"] = "normal"
+            bus_fault_button["state"] = "normal"
+            plot_button["state"] = "normal"
+            psse.run(mch.time)
+
+    def line_fault():
+        # Copy user entries into class object
+        lf.from_bus_number = lf_from_bus_number_entry.get()
+        lf.to_bus_number = lf_to_bus_number_entry.get()
+        lf.circuit_id = lf_circuit_id_entry.get()
+        lf.time = lf_time_entry.get()
+
+        # Check user entries
+        lf.from_bus_number = check_bus_entry(lf.from_bus_number)
+        if lf.from_bus_number == -1:
+            show_popup_window(machine_window, "Error", "From bus number or name doesn't exist!")
+            return
+        lf.to_bus_number = check_bus_entry(lf.to_bus_number)
+        if lf.to_bus_number == -1:
+            show_popup_window(machine_window, "Error", "To bus number or name doesn't exist!")
+            return
+        if not psse.check_if_branch_exist(lf.from_bus_number, lf.to_bus_number, lf.circuit_id):
+            show_popup_window(machine_window, "Error", "Branch doesn't exist!")
+            return
+        try:
+            lf.time = float(lf.time)
+        except ValueError:
+            show_popup_window(machine_window, "Error", "Time must be float value!")
+            return
+        if lf.time <= mch.time or lf.time > mch.time + 0.3:
+            show_popup_window(machine_window, "Error", "End time of fault must be between <%.2f, %.2f]"
+                              % (mch.time, mch.time + 0.3))
+            return
+
+        # Call method line_fault from psse.py
+        psse.line_fault(lf.from_bus_number, lf.to_bus_number, lf.circuit_id, lf.time)
+
+    def bus_fault():
+        # Copy user entries into class object
+        bf.bus_number = bf_bus_number_entry.get()
+        bf.time = bf_time_entry.get()
+
+        # Check user entries
+        bf.bus_number = check_bus_entry(bf.bus_number)
+        if bf.bus_number == -1:
+            show_popup_window(machine_window, "Error", "Bus number or name doesn't exist!")
+            return
+        try:
+            bf.time = float(bf.time)
+        except ValueError:
+            show_popup_window(machine_window, "Error", "Time must be float value!")
+            return
+        if bf.time <= mch.time or bf.time > mch.time + 0.3:
+            show_popup_window(machine_window, "Error", "End time of fault must be between <%.2f, %.2f]"
+                              % (mch.time, mch.time + 0.3))
+            return
+
+        # Call method bus_fault from psse.py
+        psse.bus_fault(bf.bus_number, bf.time)
+
+    # Create branch window
+    machine_window = Tk.Toplevel(root)
+    machine_window.grab_set()
+    machine_window.title("Machine")
+    set_window_size(machine_window, 960, 540)
+
+    # Create class objects
+    mch = Machine()
+    lf = LineFault()
+    bf = BusFault()
+
+    # Create frame Initialize
+    initialize_frame = Tk.LabelFrame(machine_window, text="Initialize")
+    initialize_frame.grid(row=0, column=0, sticky=Tk.N)
+    Tk.Label(initialize_frame, text="Output file name: ").grid(row=0, column=0)
+    Tk.Label(initialize_frame, text="Bus: ").grid(row=1, column=0)
+    Tk.Label(initialize_frame, text="Machine ID: ").grid(row=2, column=0)
+    Tk.Label(initialize_frame, text="Add channels: ").grid(row=3, column=0)
+    out_file_entry = Tk.Entry(initialize_frame)
+    out_file_entry.grid(row=0, column=1)
+    bus_number_entry = Tk.Entry(initialize_frame)
+    bus_number_entry.grid(row=1, column=1)
+    machine_id_entry = Tk.Entry(initialize_frame)
+    machine_id_entry.grid(row=2, column=1)
+    angle_var = Tk.IntVar()
+    pelec_var = Tk.IntVar()
+    Tk.Checkbutton(initialize_frame, text="Angle", variable=angle_var).grid(row=3, column=1, sticky=Tk.W)
+    Tk.Checkbutton(initialize_frame, text="Pelec", variable=pelec_var).grid(row=4, column=1, sticky=Tk.W)
+    Tk.Button(initialize_frame, text="Initialize", command=initialize).grid(row=5, column=0, columnspan=2)
+
+    # Create frame Run
+    run_frame = Tk.LabelFrame(machine_window, text="Run dynamics")
+    run_frame.grid(row=1, column=0, sticky=Tk.N, pady=(20, 0))
+    Tk.Label(run_frame, text="Time of pause: ").grid(row=0, column=0)
+    run_entry = Tk.Entry(run_frame)
+    run_entry.grid(row=0, column=1)
+    run_button = Tk.Button(run_frame, text="Run", state="disabled", command=run)
+    run_button.grid(row=1, column=0, columnspan=2)
+
+    # Create frame add Disturbance
+    disturbance_frame = Tk.LabelFrame(machine_window, text="Add disturbance")
+    disturbance_frame.grid(row=0, column=1, rowspan=2, padx=(50, 0), sticky=Tk.N)
+    # Create frame Line Fault
+    line_fault_frame = Tk.LabelFrame(disturbance_frame, text="Line fault")
+    line_fault_frame.grid(row=0, column=0, pady=(10, 0))
+    Tk.Label(line_fault_frame, text="From bus: ").grid(row=0, column=0)
+    Tk.Label(line_fault_frame, text="To bus: ").grid(row=1, column=0)
+    Tk.Label(line_fault_frame, text="Circuit ID: ").grid(row=2, column=0)
+    Tk.Label(line_fault_frame, text="End time of fault: ").grid(row=3, column=0)
+    lf_from_bus_number_entry = Tk.Entry(line_fault_frame)
+    lf_from_bus_number_entry.grid(row=0, column=1)
+    lf_to_bus_number_entry = Tk.Entry(line_fault_frame)
+    lf_to_bus_number_entry.grid(row=1, column=1)
+    lf_circuit_id_entry = Tk.Entry(line_fault_frame)
+    lf_circuit_id_entry.grid(row=2, column=1)
+    lf_time_entry = Tk.Entry(line_fault_frame)
+    lf_time_entry.grid(row=3, column=1)
+    line_fault_button = Tk.Button(line_fault_frame, text="Add disturbance", state="disabled", command=line_fault)
+    line_fault_button.grid(row=4, column=0, columnspan=2)
+    # Create frame Bus Fault
+    bus_fault_frame = Tk.LabelFrame(disturbance_frame, text="Bus fault")
+    bus_fault_frame.grid(row=1, column=0, pady=(30, 0))
+    Tk.Label(bus_fault_frame, text="Bus: ").grid(row=0, column=0)
+    Tk.Label(bus_fault_frame, text="End time of fault: ").grid(row=1, column=0)
+    bf_bus_number_entry = Tk.Entry(bus_fault_frame)
+    bf_bus_number_entry.grid(row=0, column=1)
+    bf_time_entry = Tk.Entry(bus_fault_frame)
+    bf_time_entry.grid(row=1, column=1)
+    bus_fault_button = Tk.Button(bus_fault_frame, text="Add disturbance", state="disabled", command=bus_fault)
+    bus_fault_button.grid(row=2, column=0, columnspan=2)
+
+    # Plot Graph
+    plot_button = Tk.Button(machine_window, text="Plot graph", state="disabled")
+    plot_button["command"] = lambda: psse.plot_graph(mch.out_file, mch.channel_count)
+    plot_button.grid(row=2, column=0, columnspan=2, pady=(20, 0))
+
+
 def check_bus_number(bus_number):
     if not bus_number.isdigit():
         return False
     return psse.check_if_bus_exist(int(bus_number))
+
+
+def check_bus_entry(user_input):
+    # Return bus number or -1 if bus doesn't exist
+    if user_input.isdigit():
+        return int(user_input)
+    else:
+        return psse.check_bus_name(user_input)
 
 
 def show_popup_window(window, title, message):

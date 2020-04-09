@@ -53,6 +53,18 @@ def check_out_file(file_name):
         return "out_files\\" + file_name + '.outx'
 
 
+def check_bus_name(bus_name):
+    iierr, iarray = psspy.abusint(sid=-1, flag=2, string=["NUMBER"])
+    cierr, carray = psspy.abuschar(sid=-1, flag=2, string=["NAME"])
+    bus_numbers = iarray[0]
+    bus_names = carray[0]
+    for i in range(0, len(bus_names)):
+        if bus_names[i][0:8] == bus_name:
+            return bus_numbers[i]
+    return -1
+
+
+# <editor-fold desc="### Add Channels  ###">
 def add_bus_channels(out_file, bus_number, option_frequency, option_voltage, option_voltage_angle):
     # Initialization
     channel_counter = 0
@@ -72,17 +84,60 @@ def add_bus_channels(out_file, bus_number, option_frequency, option_voltage, opt
     return channel_counter
 
 
+def add_branch_channels(out_file, from_bus_number, to_bus_number, circuit_id, option_mva, option_pq, option_p):
+    # Initialization
+    channel_counter = 0
+    # Add Channels
+    if option_mva == 1:
+        psspy.branch_mva_channel([-1, -1, -1, from_bus_number, to_bus_number], circuit_id, r"""MVA""")
+        channel_counter += 1
+    if option_pq == 1:
+        psspy.branch_p_and_q_channel([-1, -1, -1, from_bus_number, to_bus_number], circuit_id, [r"""P""", r"""Q"""])
+        channel_counter += 2
+    if option_p == 1:
+        psspy.branch_p_channel([-1, -1, -1, from_bus_number, to_bus_number], circuit_id, r"""P""")
+        channel_counter += 1
+    # Initialize a PSSE dynamic simulation for state-space simulations and specify the Channel Output File
+    psspy.strt(0, out_file)
+    # Return channel counter
+    return channel_counter
+
+
+def add_machine_channels(out_file, bus_number, machine_id, option_deg, option_p):
+    # Initialization
+    channel_counter = 0
+    # Add Channels
+    if option_deg == 1:
+        psspy.machine_array_channel([-1, 1, bus_number], machine_id, r"""DEG""")
+        channel_counter += 1
+    if option_p == 1:
+        psspy.machine_array_channel([-1, 2, bus_number], machine_id, r"""P""")
+        channel_counter += 1
+    # Initialize a PSSE dynamic simulation for state-space simulations and specify the Channel Output File
+    psspy.strt(0, out_file)
+    # Return plot counter
+    return channel_counter
+# </editor-fold>
+
+
 def run(time):
     # Run dynamics
     psspy.run(tpause=time)
 
 
-def disturbance(bus1_number, bus2_number, circuit_id, time):
+def line_fault(from_bus_number, to_bus_number, circuit_id, time):
     # Add branch fault
-    psspy.dist_branch_fault(bus1_number, bus2_number, circuit_id)
+    psspy.dist_branch_fault(from_bus_number, to_bus_number, circuit_id)
     psspy.run(tpause=time)
     psspy.dist_clear_fault(1)
-    psspy.dist_branch_trip(bus1_number, bus2_number, circuit_id)
+    psspy.dist_branch_trip(from_bus_number, to_bus_number, circuit_id)
+
+
+def bus_fault(bus_number, time):
+    psspy.dist_bus_fault(bus_number)
+    psspy.run(tpause=time)
+    psspy.dist_clear_fault()
+    psspy.dist_bus_trip(bus_number)
 
 
 def cli_options():
@@ -106,7 +161,7 @@ def cli_options():
             # Choose output file name
             out_file = get_out_file()
             # Add bus channels
-            plot_counter = add_branch_channels()
+            plot_counter = cli_add_branch_channels()
             # Initialize a PSSE dynamic simulation for state-space simulations and specify the Channel Output File
             psspy.strt(0, out_file)
             # Run option
@@ -118,7 +173,7 @@ def cli_options():
             # Choose output file name
             out_file = get_out_file()
             # Add bus channels
-            plot_counter = add_machine_channels()
+            plot_counter = cli_add_machine_channels()
             # Initialize a PSSE dynamic simulation for state-space simulations and specify the Channel Output File
             psspy.strt(0, out_file)
             # Run option
@@ -165,7 +220,7 @@ def check_if_machine_exist(bus_number, machine_id):
 # </editor-fold>
 
 
-# <editor-fold desc="###  Add Channels  ###">
+# <editor-fold desc="### CLI Add Channels  ###">
 
 def cli_add_bus_channels():
     # Initialization
@@ -200,7 +255,7 @@ def cli_add_bus_channels():
     return channel_counter
 
 
-def add_branch_channels():
+def cli_add_branch_channels():
     # Initialization
     bus1_number = bus2_number = circuit_id = None
     channel_counter = 0
@@ -235,7 +290,7 @@ def add_branch_channels():
     return channel_counter
 
 
-def add_machine_channels():
+def cli_add_machine_channels():
     # Initialization
     bus_number = machine_id = None
     channel_counter = 0
@@ -286,10 +341,10 @@ def cli_disturbance():
             channel_counter += cli_add_bus_channels()
         elif option == 2:
             # Add branch channels
-            channel_counter += add_branch_channels()
+            channel_counter += cli_add_branch_channels()
         elif option == 3:
             # Add machine channels
-            channel_counter += add_machine_channels()
+            channel_counter += cli_add_machine_channels()
         elif option == 0:
             print "\nYou must add at least one channel!"
     print "\nYou added " + str(channel_counter) + (" channels!" if channel_counter > 1 else " channel!")
