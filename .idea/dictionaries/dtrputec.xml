@@ -3,16 +3,21 @@
     <words>
       <w>abuschar</w>
       <w>abusint</w>
+      <w>abusreal</w>
       <w>accc</w>
       <w>accfile</w>
       <w>aflowchar</w>
       <w>aflowint</w>
+      <w>aflowreal</w>
+      <w>altr</w>
       <w>amachchar</w>
       <w>amachint</w>
+      <w>amachreal</w>
       <w>apiopt</w>
       <w>basekv</w>
       <w>bazni</w>
       <w>carray</w>
+      <w>chricn</w>
       <w>cierr</w>
       <w>compilfil</w>
       <w>conec</w>
@@ -21,6 +26,7 @@
       <w>conetfile</w>
       <w>confile</w>
       <w>crtplt</w>
+      <w>delt</w>
       <w>dfax</w>
       <w>dfxfile</w>
       <w>dinamika</w>
@@ -29,9 +35,12 @@
       <w>dyrefile</w>
       <w>ecomp</w>
       <w>eterm</w>
+      <w>evlmhi</w>
+      <w>evlmlo</w>
       <w>exname</w>
       <w>fdns</w>
       <w>fnsl</w>
+      <w>fract</w>
       <w>fromexname</w>
       <w>fromname</w>
       <w>fromnumber</w>
@@ -45,8 +54,10 @@
       <w>ifile</w>
       <w>iierr</w>
       <w>inlfile</w>
+      <w>intgar</w>
       <w>intval</w>
       <w>jbus</w>
+      <w>konvert</w>
       <w>lcref</w>
       <w>mbase</w>
       <w>mhos</w>
@@ -59,39 +70,67 @@
       <w>nmeterexname</w>
       <w>nmetername</w>
       <w>nmeternumber</w>
+      <w>normalni</w>
       <w>nplt</w>
       <w>nprt</w>
       <w>nstr</w>
       <w>numnam</w>
+      <w>nvlmhi</w>
+      <w>nvlmlo</w>
       <w>outx</w>
+      <w>pctcorprate</w>
+      <w>pctcorpratea</w>
+      <w>pctcorprateb</w>
+      <w>pctcorpratec</w>
+      <w>pctmvarate</w>
+      <w>pctmvaratea</w>
+      <w>pctmvarateb</w>
+      <w>pctmvaratec</w>
+      <w>pctrate</w>
+      <w>pctratea</w>
+      <w>pctrateb</w>
+      <w>pctratec</w>
       <w>pelec</w>
+      <w>ploss</w>
       <w>pmax</w>
       <w>pmech</w>
       <w>pmin</w>
       <w>pssbin</w>
       <w>psse</w>
       <w>psseinit</w>
+      <w>psspy</w>
+      <w>pucur</w>
       <w>qelec</w>
       <w>qgen</w>
+      <w>qloss</w>
       <w>qmax</w>
       <w>qmin</w>
       <w>raphson</w>
       <w>rarray</w>
       <w>ratea</w>
+      <w>rateb</w>
+      <w>ratec</w>
+      <w>reactance</w>
+      <w>realar</w>
       <w>realval</w>
+      <w>regulatori</w>
       <w>rezultat</w>
       <w>rfile</w>
       <w>rierr</w>
+      <w>rpos</w>
       <w>rstr</w>
       <w>sbase</w>
       <w>scmu</w>
       <w>setpoint</w>
+      <w>sfactor</w>
       <w>sfile</w>
+      <w>shema</w>
       <w>spcb</w>
       <w>stabilnost</w>
       <w>startindx</w>
       <w>strt</w>
       <w>subfile</w>
+      <w>subtransient</w>
       <w>swingless</w>
       <w>threewinding</w>
       <w>thrfile</w>
@@ -119,6 +158,9 @@
       <w>wvlcty</w>
       <w>xadifd</w>
       <w>xlsx</w>
+      <w>xsubtr</w>
+      <w>xsynch</w>
+      <w>xtrans</w>
     </words>
   </dictionary>
 </component>

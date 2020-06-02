@@ -18,6 +18,7 @@ import pandas
 import numpy
 from matplotlib import pyplot
 import psspy
+from psspy import _i, _f
 import dyntools
 import redirect
 
@@ -35,12 +36,18 @@ def start_psse():
     # File names
     case_file = r"""HR02_BAZNI_DYN.sav"""
     snapshot_file = r"""HR02_BAZNI_INIT.snp"""
+    # case_file = r"""test/konvert_2.sav"""
+    # dyr_file = r"""test/NOVA_HR_normalni_regulatori.dyr"""
 
     # Start PSSE and import files
     psspy.psseinit(10000)
     psspy.case(case_file)
     psspy.rstr(snapshot_file)
+    # psspy.dyre_new([1, 1, 1, 1], dyr_file, "", "", "")
+    # psspy.dynamics_solution_param_2([_i, _i, _i, _i, _i, _i, _i, _i], [_f, _f, 0.002, _f, _f, _f, _f, _f])
 
+
+# <editor-fold desc="### Check user input ###">
 
 def check_out_file(file_name):
     chars_to_remove = ['/', '\\', ':', '*', '?', '"', '<', '>', '|']
@@ -63,8 +70,11 @@ def check_bus_name(bus_name):
             return bus_numbers[i]
     return -1
 
+# </editor-fold>
 
-# <editor-fold desc="### Add Channels  ###">
+
+# <editor-fold desc="### Add Channels ###">
+
 def add_bus_channels(out_file, bus_number, option_frequency, option_voltage, option_voltage_angle):
     # Initialization
     channel_counter = 0
@@ -117,6 +127,7 @@ def add_machine_channels(out_file, bus_number, machine_id, option_deg, option_p)
     psspy.strt(0, out_file)
     # Return plot counter
     return channel_counter
+
 # </editor-fold>
 
 
@@ -124,6 +135,8 @@ def run(time):
     # Run dynamics
     psspy.run(tpause=time)
 
+
+# <editor-fold desc="### Disturbance ###">
 
 def line_fault(from_bus_number, to_bus_number, circuit_id, time):
     # Add branch fault
@@ -139,6 +152,41 @@ def bus_fault(bus_number, time):
     psspy.dist_clear_fault()
     psspy.dist_bus_trip(bus_number)
 
+# </editor-fold>
+
+
+# <editor-fold desc="###  Check if element exist  ###">
+def check_if_bus_exist(bus_number):
+    iierr, iarray = psspy.abusint(sid=-1, flag=2, string=['NUMBER'])
+    for i in range(0, len(iarray[0])):
+        if iarray[0][i] == bus_number:
+            return True
+    return False
+
+
+def check_if_branch_exist(bus1_number, bus2_number, circuit_id):
+    iierr, iarray = psspy.aflowint(sid=-1, owner=1, ties=1, flag=2, string=['FROMNUMBER', 'TONUMBER'])
+    cierr, carray = psspy.aflowchar(sid=-1, owner=1, ties=1, flag=2, string=['ID'])
+    for i in range(0, len(iarray[0])):
+        if (iarray[0][i] == bus1_number) and (iarray[1][i] == bus2_number) \
+                and ((carray[0][i] == circuit_id) or (int(carray[0][i]) == int(circuit_id))):
+            return True
+    return False
+
+
+def check_if_machine_exist(bus_number, machine_id):
+    iierr, iarray = psspy.amachint(sid=-1, flag=4, string=['NUMBER'])
+    cierr, carray = psspy.amachchar(sid=-1, flag=4, string=['ID'])
+    for i in range(0, len(iarray[0])):
+        if (iarray[0][i] == bus_number) and ((carray[0][i] == machine_id) or (int(carray[0][i]) == int(machine_id))):
+            return True
+    return False
+
+
+# </editor-fold>
+
+
+# <editor-fold desc="### CLI Methods  ###">
 
 def cli_options():
     option = -1
@@ -188,39 +236,6 @@ def cli_options():
         else:
             option = -1
 
-
-# <editor-fold desc="###  Check if element exist  ###">
-def check_if_bus_exist(bus_number):
-    iierr, iarray = psspy.abusint(sid=-1, flag=2, string=['NUMBER'])
-    for i in range(0, len(iarray[0])):
-        if iarray[0][i] == bus_number:
-            return True
-    return False
-
-
-def check_if_branch_exist(bus1_number, bus2_number, circuit_id):
-    iierr, iarray = psspy.aflowint(sid=-1, owner=1, ties=1, flag=2, string=['FROMNUMBER', 'TONUMBER'])
-    cierr, carray = psspy.aflowchar(sid=-1, owner=1, ties=1, flag=2, string=['ID'])
-    for i in range(0, len(iarray[0])):
-        if (iarray[0][i] == bus1_number) and (iarray[1][i] == bus2_number) \
-                and ((carray[0][i] == circuit_id) or (int(carray[0][i]) == int(circuit_id))):
-            return True
-    return False
-
-
-def check_if_machine_exist(bus_number, machine_id):
-    iierr, iarray = psspy.amachint(sid=-1, flag=4, string=['NUMBER'])
-    cierr, carray = psspy.amachchar(sid=-1, flag=4, string=['ID'])
-    for i in range(0, len(iarray[0])):
-        if (iarray[0][i] == bus_number) and ((carray[0][i] == machine_id) or (int(carray[0][i]) == int(machine_id))):
-            return True
-    return False
-
-
-# </editor-fold>
-
-
-# <editor-fold desc="### CLI Add Channels  ###">
 
 def cli_add_bus_channels():
     # Initialization

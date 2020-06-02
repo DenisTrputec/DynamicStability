@@ -14,9 +14,10 @@ __email__ = "denis.trputec@hops.hr"
 __status__ = "Development"
 
 import psse
+import element_info
 import Tkinter as Tk
 import tkFont
-# from PIL import ImageTk, Image
+from PIL import ImageTk, Image
 
 
 # <editor-fold desc="###  Class Definition  ###">
@@ -222,6 +223,9 @@ def set_bus_window():
         # Call method bus_fault from psse.py
         psse.bus_fault(bf.bus_number, bf.time)
 
+    # Start PSSe
+    psse.start_psse()
+
     # Create Bus window
     bus_window = Tk.Toplevel(root)
     bus_window.grab_set()
@@ -296,6 +300,14 @@ def set_bus_window():
     plot_button = Tk.Button(bus_window, text="Plot graph", state="disabled")
     plot_button["command"] = lambda: psse.plot_graph(bus.out_file, bus.channel_count)
     plot_button.grid(row=2, column=0, columnspan=2, pady=(20, 0))
+
+    # Element Information
+    info_button = Tk.Button(bus_window, text="Element Info", command=element_info_bus)
+    info_button.grid(row=3, column=1, pady=(50, 0), sticky=Tk.SE)
+
+    # Show Grid
+    info_button = Tk.Button(bus_window, text="Show Grid", command=show_grid_image)
+    info_button.grid(row=4, column=1, sticky=Tk.SE)
 
 
 def set_branch_window():
@@ -409,6 +421,9 @@ def set_branch_window():
         # Call method bus_fault from psse.py
         psse.bus_fault(bf.bus_number, bf.time)
 
+    # Start PSSe
+    psse.start_psse()
+
     # Create branch window
     branch_window = Tk.Toplevel(root)
     branch_window.grab_set()
@@ -489,6 +504,14 @@ def set_branch_window():
     plot_button = Tk.Button(branch_window, text="Plot graph", state="disabled")
     plot_button["command"] = lambda: psse.plot_graph(br.out_file, br.channel_count)
     plot_button.grid(row=2, column=0, columnspan=2, pady=(20, 0))
+
+    # Element Information
+    info_button = Tk.Button(branch_window, text="Element Info", command=element_info_branch)
+    info_button.grid(row=3, column=1, pady=(50, 0), sticky=Tk.SE)
+
+    # Show Grid
+    info_button = Tk.Button(branch_window, text="Show Grid", command=show_grid_image)
+    info_button.grid(row=4, column=1, sticky=Tk.SE)
 
 
 def set_machine_window():
@@ -596,6 +619,9 @@ def set_machine_window():
         # Call method bus_fault from psse.py
         psse.bus_fault(bf.bus_number, bf.time)
 
+    # Start PSSe
+    psse.start_psse()
+
     # Create branch window
     machine_window = Tk.Toplevel(root)
     machine_window.grab_set()
@@ -672,6 +698,316 @@ def set_machine_window():
     plot_button["command"] = lambda: psse.plot_graph(mch.out_file, mch.channel_count)
     plot_button.grid(row=2, column=0, columnspan=2, pady=(20, 0))
 
+    # Element Information
+    info_button = Tk.Button(machine_window, text="Element Info", command=element_info_machine)
+    info_button.grid(row=3, column=1, pady=(50, 0), sticky=Tk.SE)
+
+    # Show Grid
+    info_button = Tk.Button(machine_window, text="Show Grid", command=show_grid_image)
+    info_button.grid(row=4, column=1, sticky=Tk.SE)
+
+
+def element_info_bus():
+    def bus_filter():
+        # Save user 'Show' input to array but cast it from integer to boolean
+        user_options = [False] * 9
+        user_options[0] = True if number_var.get() == 1 else False
+        user_options[1] = True if type_var.get() == 1 else False
+        user_options[2] = True if area_var.get() == 1 else False
+        user_options[3] = True if zone_var.get() == 1 else False
+        user_options[4] = True if base_var.get() == 1 else False
+        user_options[5] = True if kv_var.get() == 1 else False
+        user_options[6] = True if angled_var.get() == 1 else False
+        user_options[7] = True if name_var.get() == 1 else False
+        user_options[8] = True if exname_var.get() == 1 else False
+
+        # At least one attribute must be checked
+        if not any(user_options):
+            show_popup_window(ei_bus_window, "Error", "Check at least one attribute!")
+            return
+
+        # Save user 'Filter' input to array
+        user_filter = [number_entry.get(), type_entry.get(), area_entry.get(), zone_entry.get(), base_entry.get(),
+                       kv_entry.get(), angled_entry.get(), name_entry.get(), exname_entry.get()]
+
+        # Call element_info.py methods to find and write information
+        header, info = element_info.bus_info(user_options, user_filter)
+        show_elements(ei_bus_window, header, info)
+
+    # Create Element Info Bus window
+    ei_bus_window = Tk.Toplevel(root)
+    ei_bus_window.grab_set()
+    ei_bus_window.title("Element info - Bus")
+    set_window_size(ei_bus_window, 1280, 720)
+
+    # Create frame Input
+    input_frame = Tk.Frame(ei_bus_window)
+    input_frame.grid(row=0, column=0, sticky=Tk.N)
+
+    # Create header
+    Tk.Label(input_frame, text="Show:").grid(row=0, column=0)
+    Tk.Label(input_frame, text="Filter by:").grid(row=0, column=1)
+    # Bus Attributes
+    # Create Tkinter variables
+    number_var = Tk.IntVar()
+    type_var = Tk.IntVar()
+    area_var = Tk.IntVar()
+    zone_var = Tk.IntVar()
+    base_var = Tk.IntVar()
+    kv_var = Tk.IntVar()
+    angled_var = Tk.IntVar()
+    name_var = Tk.IntVar()
+    exname_var = Tk.IntVar()
+    # Create check buttons
+    Tk.Checkbutton(input_frame, text="Number", variable=number_var).grid(row=1, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Type", variable=type_var).grid(row=2, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Area", variable=area_var).grid(row=3, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Zone", variable=zone_var).grid(row=4, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Base", variable=base_var).grid(row=5, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="kV", variable=kv_var).grid(row=6, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Angle", variable=angled_var).grid(row=7, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Name", variable=name_var).grid(row=8, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Ex Name", variable=exname_var).grid(row=9, column=0, sticky=Tk.W)
+    # Create Tkinter entries
+    number_entry = Tk.Entry(input_frame)
+    type_entry = Tk.Entry(input_frame)
+    area_entry = Tk.Entry(input_frame)
+    zone_entry = Tk.Entry(input_frame)
+    base_entry = Tk.Entry(input_frame)
+    kv_entry = Tk.Entry(input_frame)
+    angled_entry = Tk.Entry(input_frame)
+    name_entry = Tk.Entry(input_frame)
+    exname_entry = Tk.Entry(input_frame)
+    # Set grid coordinates for entries
+    number_entry.grid(row=1, column=1)
+    type_entry.grid(row=2, column=1)
+    area_entry.grid(row=3, column=1)
+    zone_entry.grid(row=4, column=1)
+    base_entry.grid(row=5, column=1)
+    kv_entry.grid(row=6, column=1)
+    angled_entry.grid(row=7, column=1)
+    name_entry.grid(row=8, column=1)
+    exname_entry.grid(row=9, column=1)
+    # Create filter button
+    Tk.Button(input_frame, text="Filter", command=bus_filter).grid(row=10, column=0, pady=(10, 0), columnspan=2)
+
+
+def element_info_branch():
+    def branch_filter():
+        # Save user 'Show' input to array but cast it from integer to boolean
+        user_options = [False] * 13
+        user_options[0] = True if fromnumber_var.get() == 1 else False
+        user_options[1] = True if tonumber_var.get() == 1 else False
+        user_options[2] = True if status_var.get() == 1 else False
+        user_options[3] = True if amps_var.get() == 1 else False
+        user_options[4] = True if ratea_var.get() == 1 else False
+        user_options[5] = True if p_var.get() == 1 else False
+        user_options[6] = True if q_var.get() == 1 else False
+        user_options[7] = True if mva_var.get() == 1 else False
+        user_options[8] = True if id_var.get() == 1 else False
+        user_options[9] = True if fromname_var.get() == 1 else False
+        user_options[10] = True if fromexname_var.get() == 1 else False
+        user_options[11] = True if toname_var.get() == 1 else False
+        user_options[12] = True if toexname_var.get() == 1 else False
+
+        # At least one attribute must be checked
+        if not any(user_options):
+            show_popup_window(ei_branch_window, "Error", "Check at least one attribute!")
+            return
+
+        # Save user 'Filter' input to array
+        user_filter = [fromnumber_entry.get(), tonumber_entry.get(), status_entry.get(), amps_entry.get(),
+                       ratea_entry.get(), p_entry.get(), q_entry.get(), mva_entry.get(), id_entry.get(),
+                       fromname_entry.get(), fromexname_entry.get(), toname_entry.get(), toexname_entry.get()]
+
+        # Call element_info.py methods to find and write information
+        header, info = element_info.branch_info(user_options, user_filter)
+        show_elements(ei_branch_window, header, info)
+
+    # Create Element Info Branch window
+    ei_branch_window = Tk.Toplevel(root)
+    ei_branch_window.grab_set()
+    ei_branch_window.title("Element info - Branch")
+    set_window_size(ei_branch_window, 1280, 720)
+
+    # Create frame Input
+    input_frame = Tk.Frame(ei_branch_window)
+    input_frame.grid(row=0, column=0, sticky=Tk.N)
+
+    # Create header
+    Tk.Label(input_frame, text="Show:").grid(row=0, column=0)
+    Tk.Label(input_frame, text="Filter by:").grid(row=0, column=1)
+    # Branch attributes
+    # Create Tkinter variables
+    fromnumber_var = Tk.IntVar()
+    tonumber_var = Tk.IntVar()
+    status_var = Tk.IntVar()
+    amps_var = Tk.IntVar()
+    ratea_var = Tk.IntVar()
+    p_var = Tk.IntVar()
+    q_var = Tk.IntVar()
+    mva_var = Tk.IntVar()
+    id_var = Tk.IntVar()
+    fromname_var = Tk.IntVar()
+    fromexname_var = Tk.IntVar()
+    toname_var = Tk.IntVar()
+    toexname_var = Tk.IntVar()
+    # Create check buttons
+    Tk.Checkbutton(input_frame, text="From number", variable=fromnumber_var).grid(row=1, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="To number", variable=tonumber_var).grid(row=2, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Status", variable=status_var).grid(row=3, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Amps", variable=amps_var).grid(row=4, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Rate A", variable=ratea_var).grid(row=5, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="P", variable=p_var).grid(row=6, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Q", variable=q_var).grid(row=7, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="MVA", variable=mva_var).grid(row=8, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="ID", variable=id_var).grid(row=9, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="From name", variable=fromname_var).grid(row=10, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="From exname", variable=fromexname_var).grid(row=11, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="To name", variable=toname_var).grid(row=12, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="To exname", variable=toexname_var).grid(row=13, column=0, sticky=Tk.W)
+    # Create Tkinter entries
+    fromnumber_entry = Tk.Entry(input_frame)
+    tonumber_entry = Tk.Entry(input_frame)
+    status_entry = Tk.Entry(input_frame)
+    amps_entry = Tk.Entry(input_frame)
+    ratea_entry = Tk.Entry(input_frame)
+    p_entry = Tk.Entry(input_frame)
+    q_entry = Tk.Entry(input_frame)
+    mva_entry = Tk.Entry(input_frame)
+    id_entry = Tk.Entry(input_frame)
+    fromname_entry = Tk.Entry(input_frame)
+    fromexname_entry = Tk.Entry(input_frame)
+    toname_entry = Tk.Entry(input_frame)
+    toexname_entry = Tk.Entry(input_frame)
+    # Set grid coordinates for entries
+    fromnumber_entry.grid(row=1, column=1)
+    tonumber_entry.grid(row=2, column=1)
+    status_entry.grid(row=3, column=1)
+    amps_entry.grid(row=4, column=1)
+    ratea_entry.grid(row=5, column=1)
+    p_entry.grid(row=6, column=1)
+    q_entry.grid(row=7, column=1)
+    mva_entry.grid(row=8, column=1)
+    id_entry.grid(row=9, column=1)
+    fromname_entry.grid(row=10, column=1)
+    fromexname_entry.grid(row=11, column=1)
+    toname_entry.grid(row=12, column=1)
+    toexname_entry.grid(row=13, column=1)
+    # Create filter button
+    Tk.Button(input_frame, text="Filter", command=branch_filter).grid(row=14, column=0, pady=(10, 0), columnspan=2)
+
+
+def element_info_machine():
+    def machine_filter():
+        # Save user 'Show' input to array but cast it from integer to boolean
+        user_options = [False] * 14
+        user_options[0] = True if number_var.get() == 1 else False
+        user_options[1] = True if status_var.get() == 1 else False
+        user_options[2] = True if mbase_var.get() == 1 else False
+        user_options[3] = True if gentap_var.get() == 1 else False
+        user_options[4] = True if pgen_var.get() == 1 else False
+        user_options[5] = True if qgen_var.get() == 1 else False
+        user_options[6] = True if mva_var.get() == 1 else False
+        user_options[7] = True if pmax_var.get() == 1 else False
+        user_options[8] = True if pmin_var.get() == 1 else False
+        user_options[9] = True if qmax_var.get() == 1 else False
+        user_options[10] = True if qmin_var.get() == 1 else False
+        user_options[11] = True if id_var.get() == 1 else False
+        user_options[12] = True if name_var.get() == 1 else False
+        user_options[13] = True if exname_var.get() == 1 else False
+
+        # At least one attribute must be checked
+        if not any(user_options):
+            show_popup_window(ei_machine_window, "Error", "Check at least one attribute!")
+            return
+
+        # Save user 'Filter' input to array
+        user_filter = [number_entry.get(), status_entry.get(), mbase_entry.get(), gentap_entry.get(), pgen_entry.get(),
+                       qgen_entry.get(), mva_entry.get(), pmax_entry.get(), pmin_entry.get(), qmax_entry.get(),
+                       qmin_entry.get(), id_entry.get(), name_entry.get(), exname_entry.get()]
+
+        # Call element_info.py methods to find and write information
+        header, info = element_info.machine_info(user_options, user_filter)
+        show_elements(ei_machine_window, header, info)
+
+    # Create Element Info Branch window
+    ei_machine_window = Tk.Toplevel(root)
+    ei_machine_window.grab_set()
+    ei_machine_window.title("Element info - Machine")
+    set_window_size(ei_machine_window, 1280, 720)
+
+    # Create frame Input
+    input_frame = Tk.Frame(ei_machine_window)
+    input_frame.grid(row=0, column=0, sticky=Tk.N)
+
+    # Create header
+    Tk.Label(input_frame, text="Show:").grid(row=0, column=0)
+    Tk.Label(input_frame, text="Filter by:").grid(row=0, column=1)
+    # Machine attributes
+    # Create Tkinter variables
+    number_var = Tk.IntVar()
+    status_var = Tk.IntVar()
+    mbase_var = Tk.IntVar()
+    gentap_var = Tk.IntVar()
+    pgen_var = Tk.IntVar()
+    qgen_var = Tk.IntVar()
+    mva_var = Tk.IntVar()
+    pmax_var = Tk.IntVar()
+    pmin_var = Tk.IntVar()
+    qmax_var = Tk.IntVar()
+    qmin_var = Tk.IntVar()
+    id_var = Tk.IntVar()
+    name_var = Tk.IntVar()
+    exname_var = Tk.IntVar()
+    # Create check buttons
+    Tk.Checkbutton(input_frame, text="Number", variable=number_var).grid(row=1, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Status", variable=status_var).grid(row=2, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="M base", variable=mbase_var).grid(row=3, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Gen tap", variable=gentap_var).grid(row=4, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="P gen", variable=pgen_var).grid(row=5, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Q gen", variable=qgen_var).grid(row=6, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="MVA", variable=mva_var).grid(row=7, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="P max", variable=pmax_var).grid(row=8, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="P min", variable=pmin_var).grid(row=9, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Q max", variable=qmax_var).grid(row=10, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Q min", variable=qmin_var).grid(row=11, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="ID", variable=id_var).grid(row=12, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Name", variable=name_var).grid(row=13, column=0, sticky=Tk.W)
+    Tk.Checkbutton(input_frame, text="Ex name", variable=exname_var).grid(row=14, column=0, sticky=Tk.W)
+    # Create Tkinter entries
+    number_entry = Tk.Entry(input_frame)
+    status_entry = Tk.Entry(input_frame)
+    mbase_entry = Tk.Entry(input_frame)
+    gentap_entry = Tk.Entry(input_frame)
+    pgen_entry = Tk.Entry(input_frame)
+    qgen_entry = Tk.Entry(input_frame)
+    mva_entry = Tk.Entry(input_frame)
+    pmax_entry = Tk.Entry(input_frame)
+    pmin_entry = Tk.Entry(input_frame)
+    qmax_entry = Tk.Entry(input_frame)
+    qmin_entry = Tk.Entry(input_frame)
+    id_entry = Tk.Entry(input_frame)
+    name_entry = Tk.Entry(input_frame)
+    exname_entry = Tk.Entry(input_frame)
+    # Set grid coordinates for entries
+    number_entry.grid(row=1, column=1)
+    status_entry.grid(row=2, column=1)
+    mbase_entry.grid(row=3, column=1)
+    gentap_entry.grid(row=4, column=1)
+    pgen_entry.grid(row=5, column=1)
+    qgen_entry.grid(row=6, column=1)
+    mva_entry.grid(row=7, column=1)
+    pmax_entry.grid(row=8, column=1)
+    pmin_entry.grid(row=9, column=1)
+    qmax_entry.grid(row=10, column=1)
+    qmin_entry.grid(row=11, column=1)
+    id_entry.grid(row=12, column=1)
+    name_entry.grid(row=13, column=1)
+    exname_entry.grid(row=14, column=1)
+    # Create filter button
+    Tk.Button(input_frame, text="Filter", command=machine_filter).grid(row=15, column=0, pady=(10, 0), columnspan=2)
+
 
 def check_bus_number(bus_number):
     if not bus_number.isdigit():
@@ -696,6 +1032,48 @@ def show_popup_window(window, title, message):
     ok_button = Tk.Button(popup_window, text="OK", command=popup_window.destroy)
     set_button_size([ok_button], 4, 1, 10)
     ok_button.pack()
+
+
+def show_elements(ei_window, header, info):
+    # Initialize Text and Scrollbar instances
+    text = Tk.Text(ei_window)
+    scroll = Tk.Scrollbar(ei_window, command=text.yview, orient=Tk.VERTICAL)
+
+    # Write header
+    header_string = ""
+    for attribute in header:
+        # Name uses more space
+        if "NAME" in attribute:
+            header_string += attribute + "\t     "
+        else:
+            header_string += attribute + "\t"
+    text.insert(Tk.INSERT, header_string)
+
+    # Max width od some element and max_height
+    max_width = len(header_string)
+    max_height = 1
+
+    # Write element info
+    for element in info:
+        element_string = "\n"
+        for attribute in element:
+            attribute = round(attribute, 2) if isinstance(attribute, float) else attribute
+            element_string += str(attribute) + "\t"
+        text.insert(Tk.INSERT, element_string)
+        if len(element_string) > max_width:
+            max_width = len(element_string)
+        if max_height < 43:
+            max_height += 1
+
+    # Configure text and set grid positions for text and scrollbar
+    text.configure(width=max_width+20, height=max_height, yscrollcommand=scroll.set)
+    text.grid(row=0, column=1, sticky=Tk.NSEW)
+    scroll.grid(row=0, column=2, sticky=Tk.NS+Tk.W)
+
+
+def show_grid_image():
+    grid_image = Image.open('images/croatian_ees_grid.jpg')
+    grid_image.show()
 
 
 def on_closing():
