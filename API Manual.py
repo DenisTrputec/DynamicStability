@@ -613,6 +613,24 @@ int IERR - Is the error code (output).
 
 # <editor-fold desc="##  4.2 Output Channel APIs  ##">
 
+def delete_all_plot_channels():
+    print r"""
+########################################################################################################################
+
+Use this API to delete all the plot channels in the working case. Use of this API will reset the number of plot channels
+to zero, and set the next channel to 1.
+
+Python syntax:
+ierr = delete_all_plot_channels()
+
+int IERR - Is the error code (output).
+            IERR = 0 no error occurred.
+            IERR = 1 prerequisite requirements for API are not met.
+
+########################################################################################################################
+"""
+
+
 def machine_array_channel():
     print r"""
 ########################################################################################################################

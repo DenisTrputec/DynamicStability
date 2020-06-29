@@ -34,17 +34,19 @@ def start_psse():
     redirect.psse2py()
 
     # File names
-    case_file = r"""HR02_BAZNI_DYN.sav"""
-    snapshot_file = r"""HR02_BAZNI_INIT.snp"""
-    # case_file = r"""test/konvert_2.sav"""
-    # dyr_file = r"""test/NOVA_HR_normalni_regulatori.dyr"""
+    # case_file = r"""HR02_BAZNI_DYN.sav"""
+    # snapshot_file = r"""HR02_BAZNI_INIT.snp"""
+    case_file = r"""test/konvert_2.sav"""
+    # snapshot_file = r"""test/NOVA_HR_normalni_regulatori.snp"""
+    dyr_file = r"""test/NOVA_HR_normalni_regulatori.dyr"""
 
     # Start PSSE and import files
     psspy.psseinit(10000)
+    psspy.delete_all_plot_channels()
     psspy.case(case_file)
-    psspy.rstr(snapshot_file)
-    # psspy.dyre_new([1, 1, 1, 1], dyr_file, "", "", "")
-    # psspy.dynamics_solution_param_2([_i, _i, _i, _i, _i, _i, _i, _i], [_f, _f, 0.002, _f, _f, _f, _f, _f])
+    # psspy.rstr(snapshot_file)
+    psspy.dyre_new([1, 1, 1, 1], dyr_file, "", "", "")
+    psspy.dynamics_solution_param_2([_i, _i, _i, _i, _i, _i, _i, _i], [_f, _f, 0.002, _f, _f, _f, _f, _f])
 
 
 # <editor-fold desc="### Check user input ###">
@@ -168,9 +170,14 @@ def check_if_branch_exist(bus1_number, bus2_number, circuit_id):
     iierr, iarray = psspy.aflowint(sid=-1, owner=1, ties=1, flag=2, string=['FROMNUMBER', 'TONUMBER'])
     cierr, carray = psspy.aflowchar(sid=-1, owner=1, ties=1, flag=2, string=['ID'])
     for i in range(0, len(iarray[0])):
-        if (iarray[0][i] == bus1_number) and (iarray[1][i] == bus2_number) \
-                and ((carray[0][i] == circuit_id) or (int(carray[0][i]) == int(circuit_id))):
-            return True
+        if iarray[0][i] == bus1_number and (iarray[1][i] == bus2_number):
+            if carray[0][i] == circuit_id:
+                return True
+            try:
+                if int(carray[0][i]) == int(circuit_id):
+                    return True
+            except ValueError:
+                return False
     return False
 
 
@@ -178,8 +185,14 @@ def check_if_machine_exist(bus_number, machine_id):
     iierr, iarray = psspy.amachint(sid=-1, flag=4, string=['NUMBER'])
     cierr, carray = psspy.amachchar(sid=-1, flag=4, string=['ID'])
     for i in range(0, len(iarray[0])):
-        if (iarray[0][i] == bus_number) and ((carray[0][i] == machine_id) or (int(carray[0][i]) == int(machine_id))):
-            return True
+        if iarray[0][i] == bus_number:
+            if carray[0][i] == machine_id:
+                return True
+            try:
+                if int(carray[0][i]) == int(machine_id):
+                    return True
+            except ValueError:
+                return False
     return False
 
 
@@ -480,6 +493,7 @@ def get_out_file():
 
 
 # <editor-fold desc="###  Plot Graph  ###">
+
 def save_xls_file(out_file):
     xls_result = dyntools.CHNF([out_file])
     xls_header, chan_id = xls_result.get_id(out_file)
@@ -504,6 +518,10 @@ def plot_graph(out_file, channel_counter):
 
 
 def plot_options(data, chan_id, i):
+    # Check if frequency
+    if chan_id[i] == "HZ":
+        data[i] = [d + 50 for d in data[i]]
+
     pyplot.figure(i)
     max_y = max(data[i])
     min_y = min(data[i])
@@ -514,9 +532,15 @@ def plot_options(data, chan_id, i):
 
     pyplot.plot(data[0], data[i], label=chan_id[i])
     pyplot.legend(loc='best')
+    pyplot.xlabel("Time [s]")
+    if chan_id[i] == "HZ":
+        pyplot.ylabel("Frequency [Hz]")
+    elif chan_id[i] == "DEG":
+        pyplot.ylabel("Angle [Deg]")
+    else:
+        pyplot.ylabel("Per Unit")
     pyplot.xlim(xmin=0, xmax=max_x)
     pyplot.ylim(ymin=min_y, ymax=max_y)
-
 
 # </editor-fold>
 

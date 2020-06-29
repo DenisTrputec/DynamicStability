@@ -16,6 +16,7 @@ __status__ = "Development"
 import psse
 import element_info
 import Tkinter as Tk
+import ttk
 import tkFont
 from PIL import ImageTk, Image
 
@@ -128,7 +129,8 @@ def set_bus_window():
 
         # Copy user entries into class object
         bus.out_file = out_file_entry.get()
-        bus.bus_number = bus_number_entry.get()
+        temp = (bus_name_combo.get()).split(' ')
+        bus.bus_number = temp[0]
         bus.freq_ch = freq_var.get()
         bus.vol_ch = vol_var.get()
         bus.vol_ang_ch = vol_ang_var.get()
@@ -170,8 +172,10 @@ def set_bus_window():
 
     def line_fault():
         # Copy user entries into class object
-        lf.from_bus_number = lf_from_bus_number_entry.get()
-        lf.to_bus_number = lf_to_bus_number_entry.get()
+        temp = (lf_from_bus_name_combo.get()).split(' ')
+        lf.from_bus_number = temp[0]
+        temp = (lf_to_bus_name_combo.get()).split(' ')
+        lf.to_bus_number = temp[0]
         lf.circuit_id = lf_circuit_id_entry.get()
         lf.time = lf_time_entry.get()
 
@@ -201,8 +205,8 @@ def set_bus_window():
         psse.line_fault(lf.from_bus_number, lf.to_bus_number, lf.circuit_id, lf.time)
 
     def bus_fault():
-        # Copy user entries into class object
-        bf.bus_number = bf_bus_number_entry.get()
+        temp = (bf_bus_name_combo.get()).split(' ')
+        bf.bus_number = temp[0]
         bf.time = bf_time_entry.get()
 
         # Check user entries
@@ -223,6 +227,23 @@ def set_bus_window():
         # Call method bus_fault from psse.py
         psse.bus_fault(bf.bus_number, bf.time)
 
+    def update_if_combobox(_):
+        # Underscore is event object that is not used
+        bus_names_new = [elem for elem in bus_names if if_value.get() in elem]
+        bus_name_combo["value"] = bus_names_new
+
+    def update_lf_from_combobox(_):
+        bus_names_new = [elem for elem in bus_names if lf_from_value.get() in elem]
+        lf_from_bus_name_combo["value"] = bus_names_new
+
+    def update_lf_to_combobox(_):
+        bus_names_new = [elem for elem in bus_names if lf_to_value.get() in elem]
+        lf_to_bus_name_combo["value"] = bus_names_new
+
+    def update_bf_combobox(_):
+        bus_names_new = [elem for elem in bus_names if bf_value.get() in elem]
+        bf_bus_name_combo["value"] = bus_names_new
+
     # Start PSSe
     psse.start_psse()
 
@@ -237,6 +258,12 @@ def set_bus_window():
     lf = LineFault()
     bf = BusFault()
 
+    # Create list of elements for combobox
+    user_options = [True, False, False, False, False, False, False, True, False]
+    user_filter = [""] * 9
+    _, bus_names_list = element_info.bus_info(user_options, user_filter)
+    bus_names = [(str(element[0]) + " " + element[1]).decode('latin1') for element in bus_names_list]
+
     # Create frame Initialize
     initialize_frame = Tk.LabelFrame(bus_window, text="Initialize")
     initialize_frame.grid(row=0, column=0, sticky=Tk.N)
@@ -244,9 +271,12 @@ def set_bus_window():
     Tk.Label(initialize_frame, text="Bus number: ").grid(row=1, column=0)
     Tk.Label(initialize_frame, text="Add channels: ").grid(row=2, column=0)
     out_file_entry = Tk.Entry(initialize_frame)
-    out_file_entry.grid(row=0, column=1)
-    bus_number_entry = Tk.Entry(initialize_frame)
-    bus_number_entry.grid(row=1, column=1)
+    out_file_entry.grid(row=0, column=1, sticky=Tk.W)
+    if_value = Tk.StringVar()
+    bus_name_combo = ttk.Combobox(initialize_frame, values=bus_names, textvariable=if_value)
+    bus_name_combo.set("")
+    bus_name_combo.bind("<KeyRelease>", update_if_combobox)
+    bus_name_combo.grid(row=1, column=1)
     freq_var = Tk.IntVar()
     vol_var = Tk.IntVar()
     vol_ang_var = Tk.IntVar()
@@ -274,14 +304,20 @@ def set_bus_window():
     Tk.Label(line_fault_frame, text="To bus number: ").grid(row=1, column=0)
     Tk.Label(line_fault_frame, text="Circuit ID: ").grid(row=2, column=0)
     Tk.Label(line_fault_frame, text="End time of fault: ").grid(row=3, column=0)
-    lf_from_bus_number_entry = Tk.Entry(line_fault_frame)
-    lf_from_bus_number_entry.grid(row=0, column=1)
-    lf_to_bus_number_entry = Tk.Entry(line_fault_frame)
-    lf_to_bus_number_entry.grid(row=1, column=1)
+    lf_from_value = Tk.StringVar()
+    lf_from_bus_name_combo = ttk.Combobox(line_fault_frame, values=bus_names, textvariable=lf_from_value)
+    lf_from_bus_name_combo.set("")
+    lf_from_bus_name_combo.bind("<KeyRelease>", update_lf_from_combobox)
+    lf_from_bus_name_combo.grid(row=0, column=1)
+    lf_to_value = Tk.StringVar()
+    lf_to_bus_name_combo = ttk.Combobox(line_fault_frame, values=bus_names, textvariable=lf_to_value)
+    lf_to_bus_name_combo.set("")
+    lf_to_bus_name_combo.bind("<KeyRelease>", update_lf_to_combobox)
+    lf_to_bus_name_combo.grid(row=1, column=1)
     lf_circuit_id_entry = Tk.Entry(line_fault_frame)
-    lf_circuit_id_entry.grid(row=2, column=1)
+    lf_circuit_id_entry.grid(row=2, column=1, sticky=Tk.W)
     lf_time_entry = Tk.Entry(line_fault_frame)
-    lf_time_entry.grid(row=3, column=1)
+    lf_time_entry.grid(row=3, column=1, sticky=Tk.W)
     line_fault_button = Tk.Button(line_fault_frame, text="Add disturbance", state="disabled", command=line_fault)
     line_fault_button.grid(row=4, column=0, columnspan=2)
     # Create frame Bus Fault
@@ -289,10 +325,13 @@ def set_bus_window():
     bus_fault_frame.grid(row=1, column=0, pady=(30, 0))
     Tk.Label(bus_fault_frame, text="Bus number: ").grid(row=0, column=0)
     Tk.Label(bus_fault_frame, text="End time of fault: ").grid(row=1, column=0)
-    bf_bus_number_entry = Tk.Entry(bus_fault_frame)
-    bf_bus_number_entry.grid(row=0, column=1)
+    bf_value = Tk.StringVar()
+    bf_bus_name_combo = ttk.Combobox(bus_fault_frame, values=bus_names, textvariable=bf_value)
+    bf_bus_name_combo.set("")
+    bf_bus_name_combo.bind("<KeyRelease>", update_bf_combobox)
+    bf_bus_name_combo.grid(row=0, column=1)
     bf_time_entry = Tk.Entry(bus_fault_frame)
-    bf_time_entry.grid(row=1, column=1)
+    bf_time_entry.grid(row=1, column=1, sticky=Tk.W)
     bus_fault_button = Tk.Button(bus_fault_frame, text="Add disturbance", state="disabled", command=bus_fault)
     bus_fault_button.grid(row=2, column=0, columnspan=2)
 
@@ -317,8 +356,10 @@ def set_branch_window():
 
         # Copy user entries into class object
         br.out_file = out_file_entry.get()
-        br.from_bus_number = from_bus_number_entry.get()
-        br.to_bus_number = to_bus_number_entry.get()
+        temp = (from_bus_name_combo.get()).split(' ')
+        br.from_bus_number = temp[0]
+        temp = (to_bus_name_combo.get()).split(' ')
+        br.to_bus_number = temp[0]
         br.circuit_id = circuit_id_entry.get()
         br.mva_ch = mva_var.get()
         br.pq_ch = pq_var.get()
@@ -368,8 +409,10 @@ def set_branch_window():
 
     def line_fault():
         # Copy user entries into class object
-        lf.from_bus_number = lf_from_bus_number_entry.get()
-        lf.to_bus_number = lf_to_bus_number_entry.get()
+        temp = (lf_from_bus_name_combo.get()).split(' ')
+        lf.from_bus_number = temp[0]
+        temp = (lf_to_bus_name_combo.get()).split(' ')
+        lf.to_bus_number = temp[0]
         lf.circuit_id = lf_circuit_id_entry.get()
         lf.time = lf_time_entry.get()
 
@@ -400,7 +443,8 @@ def set_branch_window():
 
     def bus_fault():
         # Copy user entries into class object
-        bf.bus_number = bf_bus_number_entry.get()
+        temp = (bf_bus_name_combo.get()).split(' ')
+        bf.bus_number = temp[0]
         bf.time = bf_time_entry.get()
 
         # Check user entries
@@ -421,6 +465,26 @@ def set_branch_window():
         # Call method bus_fault from psse.py
         psse.bus_fault(bf.bus_number, bf.time)
 
+    def update_if_from_combobox(_):
+        bus_names_new = [elem for elem in bus_names if from_value.get() in elem]
+        from_bus_name_combo["value"] = bus_names_new
+
+    def update_if_to_combobox(_):
+        bus_names_new = [elem for elem in bus_names if to_value.get() in elem]
+        to_bus_name_combo["value"] = bus_names_new
+
+    def update_lf_from_combobox(_):
+        bus_names_new = [elem for elem in bus_names if lf_from_value.get() in elem]
+        lf_from_bus_name_combo["value"] = bus_names_new
+
+    def update_lf_to_combobox(_):
+        bus_names_new = [elem for elem in bus_names if lf_to_value.get() in elem]
+        lf_to_bus_name_combo["value"] = bus_names_new
+
+    def update_bf_combobox(_):
+        bus_names_new = [elem for elem in bus_names if bf_value.get() in elem]
+        bf_bus_name_combo["value"] = bus_names_new
+
     # Start PSSe
     psse.start_psse()
 
@@ -435,6 +499,12 @@ def set_branch_window():
     lf = LineFault()
     bf = BusFault()
 
+    # Create list of elements for combobox
+    user_options = [True, False, False, False, False, False, False, True, False]
+    user_filter = [""] * 9
+    _, bus_names_list = element_info.bus_info(user_options, user_filter)
+    bus_names = [(str(element[0]) + " " + element[1]).decode('latin1') for element in bus_names_list]
+
     # Create frame Initialize
     initialize_frame = Tk.LabelFrame(branch_window, text="Initialize")
     initialize_frame.grid(row=0, column=0, sticky=Tk.N)
@@ -444,13 +514,19 @@ def set_branch_window():
     Tk.Label(initialize_frame, text="Circuit ID: ").grid(row=3, column=0)
     Tk.Label(initialize_frame, text="Add channels: ").grid(row=4, column=0)
     out_file_entry = Tk.Entry(initialize_frame)
-    out_file_entry.grid(row=0, column=1)
-    from_bus_number_entry = Tk.Entry(initialize_frame)
-    from_bus_number_entry.grid(row=1, column=1)
-    to_bus_number_entry = Tk.Entry(initialize_frame)
-    to_bus_number_entry.grid(row=2, column=1)
+    out_file_entry.grid(row=0, column=1, sticky=Tk.W)
+    from_value = Tk.StringVar()
+    from_bus_name_combo = ttk.Combobox(initialize_frame, values=bus_names, textvariable=from_value)
+    from_bus_name_combo.set("")
+    from_bus_name_combo.bind("<KeyRelease>", update_if_from_combobox)
+    from_bus_name_combo.grid(row=1, column=1)
+    to_value = Tk.StringVar()
+    to_bus_name_combo = ttk.Combobox(initialize_frame, values=bus_names, textvariable=to_value)
+    to_bus_name_combo.set("")
+    to_bus_name_combo.bind("<KeyRelease>", update_if_to_combobox)
+    to_bus_name_combo.grid(row=2, column=1)
     circuit_id_entry = Tk.Entry(initialize_frame)
-    circuit_id_entry.grid(row=3, column=1)
+    circuit_id_entry.grid(row=3, column=1, sticky=Tk.W)
     mva_var = Tk.IntVar()
     pq_var = Tk.IntVar()
     p_var = Tk.IntVar()
@@ -478,14 +554,20 @@ def set_branch_window():
     Tk.Label(line_fault_frame, text="To bus number: ").grid(row=1, column=0)
     Tk.Label(line_fault_frame, text="Circuit ID: ").grid(row=2, column=0)
     Tk.Label(line_fault_frame, text="End time of fault: ").grid(row=3, column=0)
-    lf_from_bus_number_entry = Tk.Entry(line_fault_frame)
-    lf_from_bus_number_entry.grid(row=0, column=1)
-    lf_to_bus_number_entry = Tk.Entry(line_fault_frame)
-    lf_to_bus_number_entry.grid(row=1, column=1)
+    lf_from_value = Tk.StringVar()
+    lf_from_bus_name_combo = ttk.Combobox(line_fault_frame, values=bus_names, textvariable=lf_from_value)
+    lf_from_bus_name_combo.set("")
+    lf_from_bus_name_combo.bind("<KeyRelease>", update_lf_from_combobox)
+    lf_from_bus_name_combo.grid(row=0, column=1)
+    lf_to_value = Tk.StringVar()
+    lf_to_bus_name_combo = ttk.Combobox(line_fault_frame, values=bus_names, textvariable=lf_to_value)
+    lf_to_bus_name_combo.set("")
+    lf_to_bus_name_combo.bind("<KeyRelease>", update_lf_to_combobox)
+    lf_to_bus_name_combo.grid(row=1, column=1)
     lf_circuit_id_entry = Tk.Entry(line_fault_frame)
-    lf_circuit_id_entry.grid(row=2, column=1)
+    lf_circuit_id_entry.grid(row=2, column=1, sticky=Tk.W)
     lf_time_entry = Tk.Entry(line_fault_frame)
-    lf_time_entry.grid(row=3, column=1)
+    lf_time_entry.grid(row=3, column=1, sticky=Tk.W)
     line_fault_button = Tk.Button(line_fault_frame, text="Add disturbance", state="disabled", command=line_fault)
     line_fault_button.grid(row=4, column=0, columnspan=2)
     # Create frame Bus Fault
@@ -493,10 +575,13 @@ def set_branch_window():
     bus_fault_frame.grid(row=1, column=0, pady=(30, 0))
     Tk.Label(bus_fault_frame, text="Bus number: ").grid(row=0, column=0)
     Tk.Label(bus_fault_frame, text="End time of fault: ").grid(row=1, column=0)
-    bf_bus_number_entry = Tk.Entry(bus_fault_frame)
-    bf_bus_number_entry.grid(row=0, column=1)
+    bf_value = Tk.StringVar()
+    bf_bus_name_combo = ttk.Combobox(bus_fault_frame, values=bus_names, textvariable=bf_value)
+    bf_bus_name_combo.set("")
+    bf_bus_name_combo.bind("<KeyRelease>", update_bf_combobox)
+    bf_bus_name_combo.grid(row=0, column=1)
     bf_time_entry = Tk.Entry(bus_fault_frame)
-    bf_time_entry.grid(row=1, column=1)
+    bf_time_entry.grid(row=1, column=1, sticky=Tk.W)
     bus_fault_button = Tk.Button(bus_fault_frame, text="Add disturbance", state="disabled", command=bus_fault)
     bus_fault_button.grid(row=2, column=0, columnspan=2)
 
@@ -521,7 +606,8 @@ def set_machine_window():
 
         # Copy user entries into class object
         mch.out_file = out_file_entry.get()
-        mch.bus_number = bus_number_entry.get()
+        temp = (bus_name_combo.get()).split(' ')
+        mch.bus_number = temp[0]
         mch.machine_id = machine_id_entry.get()
         mch.angle_ch = angle_var.get()
         mch.pelec_ch = pelec_var.get()
@@ -566,8 +652,10 @@ def set_machine_window():
 
     def line_fault():
         # Copy user entries into class object
-        lf.from_bus_number = lf_from_bus_number_entry.get()
-        lf.to_bus_number = lf_to_bus_number_entry.get()
+        temp = (lf_from_bus_name_combo.get()).split(' ')
+        lf.from_bus_number = temp[0]
+        temp = (lf_to_bus_name_combo.get()).split(' ')
+        lf.to_bus_number = temp[0]
         lf.circuit_id = lf_circuit_id_entry.get()
         lf.time = lf_time_entry.get()
 
@@ -598,7 +686,8 @@ def set_machine_window():
 
     def bus_fault():
         # Copy user entries into class object
-        bf.bus_number = bf_bus_number_entry.get()
+        temp = (bf_bus_name_combo.get()).split(' ')
+        bf.bus_number = temp[0]
         bf.time = bf_time_entry.get()
 
         # Check user entries
@@ -619,6 +708,23 @@ def set_machine_window():
         # Call method bus_fault from psse.py
         psse.bus_fault(bf.bus_number, bf.time)
 
+    def update_if_combobox(_):
+        # Underscore is event object that is not used
+        bus_names_new = [elem for elem in bus_names if if_value.get() in elem]
+        bus_name_combo["value"] = bus_names_new
+
+    def update_lf_from_combobox(_):
+        bus_names_new = [elem for elem in bus_names if lf_from_value.get() in elem]
+        lf_from_bus_name_combo["value"] = bus_names_new
+
+    def update_lf_to_combobox(_):
+        bus_names_new = [elem for elem in bus_names if lf_to_value.get() in elem]
+        lf_to_bus_name_combo["value"] = bus_names_new
+
+    def update_bf_combobox(_):
+        bus_names_new = [elem for elem in bus_names if bf_value.get() in elem]
+        bf_bus_name_combo["value"] = bus_names_new
+
     # Start PSSe
     psse.start_psse()
 
@@ -633,6 +739,12 @@ def set_machine_window():
     lf = LineFault()
     bf = BusFault()
 
+    # Create list of elements for combobox
+    user_options = [True, False, False, False, False, False, False, True, False]
+    user_filter = [""] * 9
+    _, bus_names_list = element_info.bus_info(user_options, user_filter)
+    bus_names = [(str(element[0]) + " " + element[1]).decode('latin1') for element in bus_names_list]
+
     # Create frame Initialize
     initialize_frame = Tk.LabelFrame(machine_window, text="Initialize")
     initialize_frame.grid(row=0, column=0, sticky=Tk.N)
@@ -641,11 +753,14 @@ def set_machine_window():
     Tk.Label(initialize_frame, text="Machine ID: ").grid(row=2, column=0)
     Tk.Label(initialize_frame, text="Add channels: ").grid(row=3, column=0)
     out_file_entry = Tk.Entry(initialize_frame)
-    out_file_entry.grid(row=0, column=1)
-    bus_number_entry = Tk.Entry(initialize_frame)
-    bus_number_entry.grid(row=1, column=1)
+    out_file_entry.grid(row=0, column=1, sticky=Tk.W)
+    if_value = Tk.StringVar()
+    bus_name_combo = ttk.Combobox(initialize_frame, values=bus_names, textvariable=if_value)
+    bus_name_combo.set("")
+    bus_name_combo.bind("<KeyRelease>", update_if_combobox)
+    bus_name_combo.grid(row=1, column=1, sticky=Tk.W)
     machine_id_entry = Tk.Entry(initialize_frame)
-    machine_id_entry.grid(row=2, column=1)
+    machine_id_entry.grid(row=2, column=1, sticky=Tk.W)
     angle_var = Tk.IntVar()
     pelec_var = Tk.IntVar()
     Tk.Checkbutton(initialize_frame, text="Angle", variable=angle_var).grid(row=3, column=1, sticky=Tk.W)
@@ -671,14 +786,20 @@ def set_machine_window():
     Tk.Label(line_fault_frame, text="To bus: ").grid(row=1, column=0)
     Tk.Label(line_fault_frame, text="Circuit ID: ").grid(row=2, column=0)
     Tk.Label(line_fault_frame, text="End time of fault: ").grid(row=3, column=0)
-    lf_from_bus_number_entry = Tk.Entry(line_fault_frame)
-    lf_from_bus_number_entry.grid(row=0, column=1)
-    lf_to_bus_number_entry = Tk.Entry(line_fault_frame)
-    lf_to_bus_number_entry.grid(row=1, column=1)
+    lf_from_value = Tk.StringVar()
+    lf_from_bus_name_combo = ttk.Combobox(line_fault_frame, values=bus_names, textvariable=lf_from_value)
+    lf_from_bus_name_combo.set("")
+    lf_from_bus_name_combo.bind("<KeyRelease>", update_lf_from_combobox)
+    lf_from_bus_name_combo.grid(row=0, column=1)
+    lf_to_value = Tk.StringVar()
+    lf_to_bus_name_combo = ttk.Combobox(line_fault_frame, values=bus_names, textvariable=lf_to_value)
+    lf_to_bus_name_combo.set("")
+    lf_to_bus_name_combo.bind("<KeyRelease>", update_lf_to_combobox)
+    lf_to_bus_name_combo.grid(row=1, column=1)
     lf_circuit_id_entry = Tk.Entry(line_fault_frame)
-    lf_circuit_id_entry.grid(row=2, column=1)
+    lf_circuit_id_entry.grid(row=2, column=1, sticky=Tk.W)
     lf_time_entry = Tk.Entry(line_fault_frame)
-    lf_time_entry.grid(row=3, column=1)
+    lf_time_entry.grid(row=3, column=1, sticky=Tk.W)
     line_fault_button = Tk.Button(line_fault_frame, text="Add disturbance", state="disabled", command=line_fault)
     line_fault_button.grid(row=4, column=0, columnspan=2)
     # Create frame Bus Fault
@@ -686,10 +807,13 @@ def set_machine_window():
     bus_fault_frame.grid(row=1, column=0, pady=(30, 0))
     Tk.Label(bus_fault_frame, text="Bus: ").grid(row=0, column=0)
     Tk.Label(bus_fault_frame, text="End time of fault: ").grid(row=1, column=0)
-    bf_bus_number_entry = Tk.Entry(bus_fault_frame)
-    bf_bus_number_entry.grid(row=0, column=1)
+    bf_value = Tk.StringVar()
+    bf_bus_name_combo = ttk.Combobox(bus_fault_frame, values=bus_names, textvariable=bf_value)
+    bf_bus_name_combo.set("")
+    bf_bus_name_combo.bind("<KeyRelease>", update_bf_combobox)
+    bf_bus_name_combo.grid(row=0, column=1)
     bf_time_entry = Tk.Entry(bus_fault_frame)
-    bf_time_entry.grid(row=1, column=1)
+    bf_time_entry.grid(row=1, column=1, sticky=Tk.W)
     bus_fault_button = Tk.Button(bus_fault_frame, text="Add disturbance", state="disabled", command=bus_fault)
     bus_fault_button.grid(row=2, column=0, columnspan=2)
 
